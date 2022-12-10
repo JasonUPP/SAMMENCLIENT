@@ -21,13 +21,18 @@ export class LoginFormComponent {
   async onSubmit(e: Event) {
     e.preventDefault();
     const { email, password } = this.formData;
-    this.loading = true;
-
-    const result = await this.authService.logIn(email, password);
-    if (!result.isOk) {
-      this.loading = false;
-      notify(result.message, 'error', 2000);
-    }
+    this.loading = true; 
+      this.authService.logIn(email, password)
+      .subscribe({
+        next: (data) => {
+          this.router.navigate(['/']);
+        },
+        error: (error) => {
+          this.loading = false;
+          notify(error.error, 'error', 2000);             
+        }
+      }
+      );
   }
 
   onCreateAccountClick = () => {

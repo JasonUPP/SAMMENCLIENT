@@ -1,5 +1,10 @@
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
+import { Router } from '@angular/router';
+import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
+import { LoginResponse } from 'src/app/Models/loginResponse';
+import { User } from 'src/app/Models/user';
+import {environment} from '../../../environments/environment'
 
 export interface IUser {
   email: string;
@@ -7,44 +12,74 @@ export interface IUser {
 }
 
 const defaultPath = '/';
+const baseurl = environment.apiURL + 'api/auth/'
 const defaultUser = {
   email: 'sandra@example.com',
   avatarUrl: 'https://js.devexpress.com/Demos/WidgetsGallery/JSDemos/images/employees/06.png'
 };
 
+const httpOption = {
+  headers : new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+};
+
 @Injectable()
 export class AuthService {
-  private _user: IUser | null = defaultUser;
+  //private _user: IUser | null = defaultUser;
+  private _user: any;
+  // get loggedIn(): boolean {
+  //   return !!this._user;
+  // }
+
+  private userSubject: BehaviorSubject<any>;
+  private tokenSubject: BehaviorSubject<string>;
+
   get loggedIn(): boolean {
-    return !!this._user;
+    return !!this.userSubject.value;
   }
 
+  get userLogged():User {
+    return this.userSubject.value;
+  }
+
+  get token() {
+    return this.tokenSubject.value;
+  }
   private _lastAuthenticatedPath: string = defaultPath;
   set lastAuthenticatedPath(value: string) {
     this._lastAuthenticatedPath = value;
   }
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private http: HttpClient) {
+    this.userSubject = new BehaviorSubject<any>(JSON.parse(sessionStorage.getItem('user') ?? 'null'))//?? when its null
+    this.tokenSubject = new BehaviorSubject<string>('');
+   }
 
-  async logIn(email: string, password: string) {
+  logIn(email: string, password: string): Observable<any>  {
+    return this.http.post<LoginResponse>(`${baseurl}Login`, { email, password}, httpOption)
+    .pipe(
+      map(res => {
+        // this._user = {...res.user};
+        // this.router.navigate([this._lastAuthenticatedPath]);
+        const user: User = res.user;
+        sessionStorage.setItem('user', JSON.stringify(user));
+        this.userSubject.next(user);
+        this.tokenSubject.next(res.token);
+      }),
+      catchError(this.handleError)
+    )
+  }
 
-    try {
-      // Send request
-      console.log(email, password);
-      this._user = { ...defaultUser, email };
-      this.router.navigate([this._lastAuthenticatedPath]);
+  logOut(){
+    sessionStorage.removeItem('user');    
+    this.userSubject.next(null);
+    this.router.navigate(['/login-form']);
 
-      return {
-        isOk: true,
-        data: this._user
-      };
-    }
-    catch {
-      return {
-        isOk: false,
-        message: "Authentication failed"
-      };
-    }
+  }
+
+  handleError(error: HttpErrorResponse) {
+    return throwError(() => error);
   }
 
   async getUser() {
@@ -116,39 +151,8 @@ export class AuthService {
     }
   }
 
-  async logOut() {
-    this._user = null;
-    this.router.navigate(['/login-form']);
-  }
-}
-
-@Injectable()
-export class AuthGuardService implements CanActivate {
-  constructor(private router: Router, private authService: AuthService) { }
-
-  canActivate(route: ActivatedRouteSnapshot): boolean {
-    const isLoggedIn = this.authService.loggedIn;
-    const isAuthForm = [
-      'login-form',
-      'reset-password',
-      'create-account',
-      'change-password/:recoveryCode'
-    ].includes(route.routeConfig?.path || defaultPath);
-
-    if (isLoggedIn && isAuthForm) {
-      this.authService.lastAuthenticatedPath = defaultPath;
-      this.router.navigate([defaultPath]);
-      return false;
-    }
-
-    if (!isLoggedIn && !isAuthForm) {
-      this.router.navigate(['/login-form']);
-    }
-
-    if (isLoggedIn) {
-      this.authService.lastAuthenticatedPath = route.routeConfig?.path || defaultPath;
-    }
-
-    return isLoggedIn || isAuthForm;
-  }
+  // async logOut() {
+  //   this._user = null;
+  //   this.router.navigate(['/login-form']);
+  // }
 }

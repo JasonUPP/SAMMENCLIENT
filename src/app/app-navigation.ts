@@ -17,5 +17,19 @@ export const navigation = [
         path: '/tasks'
       }
     ]
-  }
+  },
+  // {
+  //   text: 'Operativo',
+  //   icon: 'folder',
+  //   items: [
+  //     {
+  //       text: 'Herramienta',
+  //       path: '/herramienta'
+  //     },
+  //     {
+  //       text: 'Medida Herramienta',
+  //       path: '/herramienta'
+  //     }
+  //   ]
+  // },
 ];
