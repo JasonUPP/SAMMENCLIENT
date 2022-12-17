@@ -13,10 +13,6 @@ export interface IUser {
 
 const defaultPath = '/';
 const baseurl = environment.apiURL + 'api/auth/'
-const defaultUser = {
-  email: 'sandra@example.com',
-  avatarUrl: 'https://js.devexpress.com/Demos/WidgetsGallery/JSDemos/images/employees/06.png'
-};
 
 const httpOption = {
   headers : new HttpHeaders({
@@ -26,12 +22,7 @@ const httpOption = {
 
 @Injectable()
 export class AuthService {
-  //private _user: IUser | null = defaultUser;
   private _user: any;
-  // get loggedIn(): boolean {
-  //   return !!this._user;
-  // }
-
   private userSubject: BehaviorSubject<any>;
   private tokenSubject: BehaviorSubject<string>;
 
@@ -60,8 +51,6 @@ export class AuthService {
     return this.http.post<LoginResponse>(`${baseurl}Login`, { email, password}, httpOption)
     .pipe(
       map(res => {
-        // this._user = {...res.user};
-        // this.router.navigate([this._lastAuthenticatedPath]);
         const user: User = res.user;
         sessionStorage.setItem('user', JSON.stringify(user));
         this.userSubject.next(user);
@@ -83,12 +72,10 @@ export class AuthService {
   }
 
   async getUser() {
-    try {
-      // Send request
-
+    try {     
       return {
         isOk: true,
-        data: this._user
+        data: this.userSubject.value
       };
     }
     catch {
@@ -150,9 +137,4 @@ export class AuthService {
       };
     }
   }
-
-  // async logOut() {
-  //   this._user = null;
-  //   this.router.navigate(['/login-form']);
-  // }
 }

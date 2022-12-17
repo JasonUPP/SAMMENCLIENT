@@ -35,7 +35,16 @@ export class CreateAccountFormComponent {
   }
 
   confirmPassword = (e: ValidationCallbackData) => {
+    debugger;
     return e.value === this.formData.password;
+  }
+
+  minimumLength = (e:ValidationCallbackData) => {    
+    return (e.value).length < 8 ?  false : true;
+  }
+
+  checkForNumber = (e:ValidationCallbackData) => {
+    return /\d/.test(e.value);
   }
 }
 @NgModule({

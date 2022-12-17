@@ -5,6 +5,20 @@ export const navigation = [
     icon: 'home'
   },
   {
+    text: 'Operativo',    
+    icon: 'folder',
+    items: [
+      {
+        text: 'Herramienta',
+        path: 'Operativo/Herramienta'
+      },
+      // {
+      //   text: 'Medida Herramienta',
+      //   path: '/herramienta'
+      // }
+    ]
+  },
+  {
     text: 'Examples',
     icon: 'folder',
     items: [
@@ -18,18 +32,5 @@ export const navigation = [
       }
     ]
   },
-  // {
-  //   text: 'Operativo',
-  //   icon: 'folder',
-  //   items: [
-  //     {
-  //       text: 'Herramienta',
-  //       path: '/herramienta'
-  //     },
-  //     {
-  //       text: 'Medida Herramienta',
-  //       path: '/herramienta'
-  //     }
-  //   ]
-  // },
+
 ];

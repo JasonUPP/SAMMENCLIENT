@@ -5,7 +5,7 @@ export class AppInfoService {
   constructor() {}
 
   public get title() {
-    return 'SAMMEN.CLIENT';
+    return 'SAMMEN';
   }
 
   public get currentYear() {

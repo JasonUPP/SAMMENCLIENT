@@ -6,6 +6,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
 import { DxDataGridModule, DxFormModule } from 'devextreme-angular';
 import { AuthGuardService } from './security/auth.guard';
+import { HerramientaComponent } from './pages/Operativo/herramienta/herramienta.component';
 
 const routes: Routes = [
   {
@@ -44,9 +45,15 @@ const routes: Routes = [
     canActivate: [ AuthGuardService ]
   },
   {
+    path: 'Operativo/Herramienta',
+    component: HerramientaComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
     path: '**',
     redirectTo: 'home'
-  }
+  },
+
 ];
 
 @NgModule({
@@ -56,7 +63,8 @@ const routes: Routes = [
   declarations: [
     HomeComponent,
     ProfileComponent,
-    TasksComponent
+    TasksComponent,
+    HerramientaComponent
   ]
 })
 export class AppRoutingModule { }
