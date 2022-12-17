@@ -34,8 +34,7 @@ export class CreateAccountFormComponent {
     }
   }
 
-  confirmPassword = (e: ValidationCallbackData) => {
-    debugger;
+  confirmPassword = (e: ValidationCallbackData) => {    
     return e.value === this.formData.password;
   }
 

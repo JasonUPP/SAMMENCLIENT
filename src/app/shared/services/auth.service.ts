@@ -6,11 +6,6 @@ import { LoginResponse } from 'src/app/Models/loginResponse';
 import { User } from 'src/app/Models/user';
 import {environment} from '../../../environments/environment'
 
-export interface IUser {
-  email: string;
-  avatarUrl?: string
-}
-
 const defaultPath = '/';
 const baseurl = environment.apiURL + 'api/auth/'
 
@@ -43,8 +38,9 @@ export class AuthService {
   }
 
   constructor(private router: Router, private http: HttpClient) {
-    this.userSubject = new BehaviorSubject<any>(JSON.parse(sessionStorage.getItem('user') ?? 'null'))//?? when its null
-    this.tokenSubject = new BehaviorSubject<string>('');
+    this.userSubject = new BehaviorSubject<any>(JSON.parse(sessionStorage.getItem('user') ?? 'null'))
+    debugger;
+    this.tokenSubject = new BehaviorSubject<string>(JSON.parse(sessionStorage.getItem('tkn') ?? 'null'))
    }
 
   logIn(email: string, password: string): Observable<any>  {
@@ -53,6 +49,7 @@ export class AuthService {
       map(res => {
         const user: User = res.user;
         sessionStorage.setItem('user', JSON.stringify(user));
+        sessionStorage.setItem('tkn', JSON.stringify(res.token));
         this.userSubject.next(user);
         this.tokenSubject.next(res.token);
       }),
@@ -87,10 +84,8 @@ export class AuthService {
   }
 
   async createAccount(email: string, password: string) {
-    try {
-      // Send request
+    try {      
       console.log(email, password);
-
       this.router.navigate(['/create-account']);
       return {
         isOk: true
