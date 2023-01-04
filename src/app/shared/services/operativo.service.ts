@@ -2,13 +2,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 
-const httpOption = {
-    headers : new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
-
 const baseurl = environment.apiURL;
+const herramientaUrl = baseurl + 'api/Herramienta/'
 
 @Injectable()
 export class OperativoService {      
@@ -17,6 +12,10 @@ export class OperativoService {
 
     getTest(){
         return this.http.get(`${baseurl}WeatherForecast`);
+    }
+
+    getHerramientas(){
+      return this.http.get(`${herramientaUrl}GetHerramientas`);
     }
 
 }

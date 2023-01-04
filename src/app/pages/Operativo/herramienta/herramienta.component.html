@@ -1,1 +1,99 @@
-<p>herramienta works!</p>
+<h2 class="content-block">Herramientas</h2>
+<dx-data-grid 
+    id="gridHerramientas"
+    class="dx-card wide-card"
+    [dataSource]="dataSource"
+    [showBorders]="true"
+    keyExpr="id"
+    [focusedRowEnabled]="true"
+    [focusedRowIndex]="0"
+    [columnAutoWidth]="true"
+    [rowAlternationEnabled]="true"
+    [allowColumnReordering]="true"
+    [columnHidingEnabled]="false">
+
+    <!-- Edit zone -->
+    <dxo-editing
+    mode="popup"
+    [allowUpdating]="true"
+    [allowAdding]="true"
+    [allowDeleting]="true"
+  >
+    <dxo-popup
+      title="Editar Herramienta"
+      [showTitle]="true"
+      [width]="1000"
+      [height]="550"
+    >
+    </dxo-popup>
+    <dxo-form>
+
+      <dxi-item itemType="group" [colCount]="3" [colSpan]="2">
+        <dxi-item dataField="num" editorType="dxNumberBox"></dxi-item>
+        <dxi-item dataField="descripcion"></dxi-item>
+        <dxi-item dataField="numeroSerie"></dxi-item>
+        <dxi-item dataField="numeroInforme"></dxi-item>
+        <dxi-item dataField="fechaVencimiento" editorType="dxDateBox"></dxi-item>
+        <dxi-item dataField="dias"></dxi-item>
+        <dxi-item dataField="estatus"></dxi-item>
+        <dxi-item dataField="fechaEntrega" editorType="dxDateBox"></dxi-item>
+        <dxi-item dataField="diasCampo"></dxi-item>
+        <dxi-item dataField="acuse"></dxi-item>
+        <dxi-item dataField="firma"></dxi-item>
+        <dxi-item dataField="ubicacion"></dxi-item>
+        <dxi-item dataField="ultimoMtto" editorType="dxDateBox"></dxi-item>
+        <dxi-item dataField="diasSinMtto"></dxi-item>
+      </dxi-item>
+      <dxi-item itemType="group" [colCount]="3" [colSpan]="2">
+        <dxi-item
+          dataField="observaciones"          
+          [colSpan]="3"
+          [editorOptions]="{ height: 100 }">
+        </dxi-item>
+      </dxi-item>
+    </dxo-form>
+  </dxo-editing>
+
+    <!-- Row zone -->
+    <dxi-column dataField="id" [visible]="false"></dxi-column>
+    <dxi-column dataField="num"></dxi-column>
+    <dxi-column dataField="descripcion"></dxi-column>
+    <dxi-column dataField="numeroSerie"></dxi-column>
+    <dxi-column dataField="numeroInforme"></dxi-column>
+    <dxi-column dataField="fechaVencimiento"></dxi-column>
+    <dxi-column dataField="dias"></dxi-column>
+    <dxi-column dataField="estatus"></dxi-column>
+    <dxi-column dataField="fechaEntrega"></dxi-column>
+    <dxi-column dataField="diasCampo"></dxi-column>
+    <dxi-column dataField="acuse"></dxi-column>
+    <dxi-column dataField="firma"></dxi-column>
+    <dxi-column dataField="ubicacion"></dxi-column>
+    <dxi-column dataField="ultimoMtto"></dxi-column>
+    <dxi-column dataField="diasSinMtto"></dxi-column>
+    <dxi-column dataField="observaciones"></dxi-column>
+    <dxi-column dataField="tipo" [visible]="true"></dxi-column>
+    <dxi-column dataField="idMedidaHerramienta" [visible]="false"></dxi-column>
+    <dxi-column dataField="medidaHerramienta" [visible]="false"></dxi-column>
+    <dxi-column dataField="marca" [visible]="false"></dxi-column>
+    <dxi-column dataField="modelo" [visible]="false"></dxi-column>
+
+    <!-- Pagin, Filter, Search zone -->
+    <dxo-filter-row
+        [visible]="true"
+        [applyFilter]="true">
+    </dxo-filter-row>
+    
+    <dxo-paging [pageSize]="5"></dxo-paging>
+    <dxo-pager
+      [showPageSizeSelector]="true"
+      [allowedPageSizes]="[5, 10, 20]"
+    ></dxo-pager>
+
+    <dxo-header-filter [visible]="true"></dxo-header-filter>
+    <dxo-search-panel
+      [visible]="true"
+      [width]="240"
+      placeholder="Search..."
+    ></dxo-search-panel>
+
+</dx-data-grid>

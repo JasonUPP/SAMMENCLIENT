@@ -39,7 +39,6 @@ export class AuthService {
 
   constructor(private router: Router, private http: HttpClient) {
     this.userSubject = new BehaviorSubject<any>(JSON.parse(sessionStorage.getItem('user') ?? 'null'))
-    debugger;
     this.tokenSubject = new BehaviorSubject<string>(JSON.parse(sessionStorage.getItem('tkn') ?? 'null'))
    }
 

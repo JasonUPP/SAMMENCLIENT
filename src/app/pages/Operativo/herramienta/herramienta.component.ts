@@ -9,20 +9,27 @@ import { OperativoService } from 'src/app/shared/services/operativo.service';
 })
 export class HerramientaComponent implements OnInit {
   loading = false;
+  dataSource: any;
+  headers: any;
 
   constructor(private operativoService: OperativoService){}
 
   ngOnInit(): void {
+    this.getHerramientas();
+  }
+
+  getHerramientas(){
     this.loading = true; 
-    this.operativoService.getTest()
+    this.operativoService.getHerramientas()
     .subscribe({
-      next: (data) => {
-        console.log(data);
+      next: (data:any) => {     
+        this.headers = Object.getOwnPropertyNames(data[0]);        
+        this.dataSource = data;
       },
       error: (error) => {
-        this.loading = false;
         notify(error.error, 'error', 2000);   
-      }
+      },
+      complete: () => this.loading = false
     });
   }
 
