@@ -24,7 +24,7 @@ export class LoginFormComponent {
     this.loading = true; 
       this.authService.logIn(email, password)
       .subscribe({
-        next: (data) => {
+        next: () => {
           this.router.navigate(['/']);
         },
         error: (error) => {

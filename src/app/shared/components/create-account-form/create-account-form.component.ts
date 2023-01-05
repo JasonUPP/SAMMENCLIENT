@@ -6,6 +6,7 @@ import { DxFormModule } from 'devextreme-angular/ui/form';
 import { DxLoadIndicatorModule } from 'devextreme-angular/ui/load-indicator';
 import notify from 'devextreme/ui/notify';
 import { AuthService } from '../../services';
+import { signUpDto } from 'src/app/Models/Dtos/signUpDto';
 
 
 @Component({
@@ -15,23 +16,39 @@ import { AuthService } from '../../services';
 })
 export class CreateAccountFormComponent {
   loading = false;
-  formData: any = {};
+  formData: any = {};  
 
   constructor(private authService: AuthService, private router: Router) { }
 
   async onSubmit(e: Event) {
     e.preventDefault();
-    const { email, password } = this.formData;
     this.loading = true;
+    const { email, password, name, lastName } = this.formData;
+    const usr: signUpDto = {      
+      Name: name,
+      LastName: lastName,
+      Email: email,
+      Password: password   
+    };
+    this.authService.signUp(usr)
+    .subscribe({
+      next: () => {        
+        this.router.navigate(['/login-form']);        
+      },
+      error: (error) => {
+        this.loading = false;
+        notify(error.error, 'error', 2000);
+      }
+    })
 
-    const result = await this.authService.createAccount(email, password);
+    // const result = await this.authService.createAccount(email, password);
     this.loading = false;
 
-    if (result.isOk) {
-      this.router.navigate(['/login-form']);
-    } else {
-      notify(result.message, 'error', 2000);
-    }
+    // if (result.isOk) {
+    //   this.router.navigate(['/login-form']);
+    // } else {
+    //   notify(result.message, 'error', 2000);
+    // }
   }
 
   confirmPassword = (e: ValidationCallbackData) => {    

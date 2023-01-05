@@ -27,7 +27,7 @@ export class UnauthenticatedContentComponent {
     switch (path) {
       case 'login-form': return 'Iniciar Sesión';
       case 'reset-password': return 'Restablecer contraseña';
-      case 'create-account': return 'Registrarse';
+      case 'create-account': return 'Crear cuenta';
       case 'change-password': return 'Cambiar contraseña';
       default: return '';
     }

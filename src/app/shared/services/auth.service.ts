@@ -2,7 +2,8 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
-import { LoginResponse } from 'src/app/Models/loginResponse';
+import { LoginDto } from 'src/app/Models/Dtos/loginDto';
+import { signUpDto } from 'src/app/Models/Dtos/signUpDto';
 import { User } from 'src/app/Models/user';
 import {environment} from '../../../environments/environment'
 
@@ -43,7 +44,7 @@ export class AuthService {
    }
 
   logIn(email: string, password: string): Observable<any>  {
-    return this.http.post<LoginResponse>(`${baseurl}Login`, { email, password}, httpOption)
+    return this.http.post<LoginDto>(`${baseurl}Login`, { email, password}, httpOption)
     .pipe(
       map(res => {
         const user: User = res.user;
@@ -80,6 +81,13 @@ export class AuthService {
         data: null
       };
     }
+  }
+
+  signUp(user: signUpDto): Observable<any>{
+    return this.http.post<User>(`${baseurl}SignUp`, {...user}, httpOption)
+    .pipe(
+      catchError(this.handleError)
+    )
   }
 
   async createAccount(email: string, password: string) {
