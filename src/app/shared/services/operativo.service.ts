@@ -1,9 +1,10 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 
-const baseurl = environment.apiURL;
-const herramientaUrl = baseurl + 'api/Herramienta/'
+const baseurl = environment.apiURL + 'api/';
+const herramientaUrl = baseurl + 'Herramienta/';
+const medidaHerramientaUrl = baseurl + 'MedidaHerramienta/';
 
 @Injectable()
 export class OperativoService {      
@@ -16,6 +17,10 @@ export class OperativoService {
 
     getHerramientas(){
       return this.http.get(`${herramientaUrl}GetHerramientas`);
+    }
+
+    getMedidaHerramientas(){
+      return this.http.get(`${medidaHerramientaUrl}GetMedidasHerramientas`);
     }
 
 }

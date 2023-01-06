@@ -8,9 +8,8 @@ import { OperativoService } from 'src/app/shared/services/operativo.service';
   styleUrls: ['./herramienta.component.scss']
 })
 export class HerramientaComponent implements OnInit {
-  loading = false;
+  loading:boolean = true;
   dataSource: any;
-  headers: any;
 
   constructor(private operativoService: OperativoService){}
 
@@ -19,11 +18,9 @@ export class HerramientaComponent implements OnInit {
   }
 
   getHerramientas(){
-    this.loading = true; 
     this.operativoService.getHerramientas()
     .subscribe({
       next: (data:any) => {     
-        this.headers = Object.getOwnPropertyNames(data[0]);        
         this.dataSource = data;
       },
       error: (error) => {

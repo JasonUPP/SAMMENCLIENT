@@ -12,10 +12,10 @@ export const navigation = [
         text: 'Herramienta',
         path: 'Operativo/Herramienta'
       },
-      // {
-      //   text: 'Medida Herramienta',
-      //   path: '/herramienta'
-      // }
+      {
+        text: 'Medida Herramienta',
+        path: 'Operativo/MedidaHerramienta'
+      }
     ]
   },
   {

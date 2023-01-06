@@ -7,6 +7,7 @@ import { TasksComponent } from './pages/tasks/tasks.component';
 import { DxDataGridModule, DxFormModule } from 'devextreme-angular';
 import { AuthGuardService } from './security/auth.guard';
 import { HerramientaComponent } from './pages/Operativo/herramienta/herramienta.component';
+import { MedidaHerramientaComponent } from './pages/Operativo/medida-herramienta/medida-herramienta.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,11 @@ const routes: Routes = [
     canActivate: [AuthGuardService]
   },
   {
+    path: 'Operativo/MedidaHerramienta',
+    component: MedidaHerramientaComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
     path: '**',
     redirectTo: 'home'
   },
@@ -64,7 +70,8 @@ const routes: Routes = [
     HomeComponent,
     ProfileComponent,
     TasksComponent,
-    HerramientaComponent
+    HerramientaComponent,
+    MedidaHerramientaComponent,
   ]
 })
 export class AppRoutingModule { }
