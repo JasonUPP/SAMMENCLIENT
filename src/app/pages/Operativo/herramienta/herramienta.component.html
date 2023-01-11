@@ -10,6 +10,7 @@
     [columnAutoWidth]="true"
     [rowAlternationEnabled]="true"
     [allowColumnReordering]="true"
+    [allowColumnResizing]="true"
     [columnHidingEnabled]="false">
 
     <!-- Edit zone -->
@@ -26,23 +27,28 @@
       [height]="550"
     >
     </dxo-popup>
-    <dxo-form>
 
+    <!-- Edit Form -->
+    <dxo-form>
       <dxi-item itemType="group" [colCount]="3" [colSpan]="2">
         <dxi-item dataField="num" editorType="dxNumberBox"></dxi-item>
-        <dxi-item dataField="descripcion"></dxi-item>
-        <dxi-item dataField="numeroSerie"></dxi-item>
+        <dxi-item dataField="descripcion">
+          <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
+        </dxi-item>
+        <dxi-item dataField="numeroSerie">
+          <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
+        </dxi-item>
         <dxi-item dataField="numeroInforme"></dxi-item>
         <dxi-item dataField="fechaVencimiento" editorType="dxDateBox"></dxi-item>
-        <dxi-item dataField="dias"></dxi-item>
+        <dxi-item dataField="dias" editorType="dxNumberBox"></dxi-item>
         <dxi-item dataField="estatus"></dxi-item>
         <dxi-item dataField="fechaEntrega" editorType="dxDateBox"></dxi-item>
-        <dxi-item dataField="diasCampo"></dxi-item>
+        <dxi-item dataField="diasCampo" editorType="dxNumberBox"></dxi-item>
         <dxi-item dataField="acuse"></dxi-item>
         <dxi-item dataField="firma"></dxi-item>
-        <dxi-item dataField="ubicacion"></dxi-item>
+        <dxi-item dataField="idUbicacion"></dxi-item>
         <dxi-item dataField="ultimoMtto" editorType="dxDateBox"></dxi-item>
-        <dxi-item dataField="diasSinMtto"></dxi-item>
+        <dxi-item dataField="diasSinMtto" editorType="dxNumberBox"></dxi-item>
       </dxi-item>
       <dxi-item itemType="group" [colCount]="3" [colSpan]="2">
         <dxi-item
@@ -62,12 +68,18 @@
     <dxi-column dataField="numeroInforme"></dxi-column>
     <dxi-column dataField="fechaVencimiento"></dxi-column>
     <dxi-column dataField="dias"></dxi-column>
-    <dxi-column dataField="estatus"></dxi-column>
+    <dxi-column dataField="estatus">
+      <dxo-lookup [dataSource]="estatusList" displayExpr="nombre" valueExpr="id">
+      </dxo-lookup>
+    </dxi-column>
     <dxi-column dataField="fechaEntrega"></dxi-column>
     <dxi-column dataField="diasCampo"></dxi-column>
     <dxi-column dataField="acuse"></dxi-column>
     <dxi-column dataField="firma"></dxi-column>
-    <dxi-column dataField="ubicacion"></dxi-column>
+    <dxi-column dataField="idUbicacion" caption="Ubicación">
+      <dxo-lookup [dataSource]="ubicaciones" displayExpr="nombre" valueExpr="id">
+      </dxo-lookup>
+    </dxi-column>
     <dxi-column dataField="ultimoMtto"></dxi-column>
     <dxi-column dataField="diasSinMtto"></dxi-column>
     <dxi-column dataField="observaciones"></dxi-column>
@@ -87,6 +99,9 @@
     <dxo-pager
       [showPageSizeSelector]="true"
       [allowedPageSizes]="[5, 10, 20]"
+      [showNavigationButtons]="true"
+      [showInfo]="true"
+      infoText="Page #{0}. Total: {1} ({2} items)"
     ></dxo-pager>
 
     <dxo-header-filter [visible]="true"></dxo-header-filter>
@@ -95,5 +110,9 @@
       [width]="240"
       placeholder="Search..."
     ></dxo-search-panel>
+
+    <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+    <!-- column fixing allows user to edit without horizontal scrolling -->
+    <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
 
 </dx-data-grid>

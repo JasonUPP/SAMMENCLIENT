@@ -14,13 +14,15 @@ export class MedidaHerramientaComponent implements OnInit {
   constructor(private operativoService: OperativoService){}
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.getMedidasHerramientas();
   }
 
   getMedidasHerramientas(){
     this.operativoService.getMedidaHerramientas()
     .subscribe({
       next: (data:any) => {
+        console.log(data);
+        
         this.dataSource = data;
       },
       error: (e) => {

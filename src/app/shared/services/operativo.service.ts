@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { getHerramientasDto } from "src/app/Models/Dtos/Operativo/getHerramientasDto";
 import { environment } from "src/environments/environment";
 
 const baseurl = environment.apiURL + 'api/';
@@ -16,7 +17,7 @@ export class OperativoService {
     }
 
     getHerramientas(){
-      return this.http.get(`${herramientaUrl}GetHerramientas`);
+      return this.http.get<getHerramientasDto>(`${herramientaUrl}GetHerramientas`);
     }
 
     getMedidaHerramientas(){
