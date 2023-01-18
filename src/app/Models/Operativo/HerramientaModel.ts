@@ -15,5 +15,5 @@ export interface Herramienta {
     UltimoMtto: Date;
     DiasSinMtto: number;
     Observaciones: string;
-    Tipo: string;
+    Tipo: number;
 };

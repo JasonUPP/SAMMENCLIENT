@@ -11,11 +11,16 @@
     [rowAlternationEnabled]="true"
     [allowColumnReordering]="true"
     [allowColumnResizing]="true"
-    [columnHidingEnabled]="false">
+    [columnHidingEnabled]="false"
+    (onRowUpdated)="updateHerramienta($event)"    
+    (onRowInserting)="newHerramienta($event)"
+    (onRowRemoving)="deleteHerramienta($event)"
+    >
 
     <!-- Edit zone -->
     <dxo-editing
     mode="popup"
+    refreshMode="reshape"
     [allowUpdating]="true"
     [allowAdding]="true"
     [allowDeleting]="true"
@@ -41,14 +46,21 @@
         <dxi-item dataField="numeroInforme"></dxi-item>
         <dxi-item dataField="fechaVencimiento" editorType="dxDateBox"></dxi-item>
         <dxi-item dataField="dias" editorType="dxNumberBox"></dxi-item>
-        <dxi-item dataField="estatus"></dxi-item>
+        <dxi-item dataField="estatus">
+          <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
+        </dxi-item>
         <dxi-item dataField="fechaEntrega" editorType="dxDateBox"></dxi-item>
         <dxi-item dataField="diasCampo" editorType="dxNumberBox"></dxi-item>
         <dxi-item dataField="acuse"></dxi-item>
         <dxi-item dataField="firma"></dxi-item>
-        <dxi-item dataField="idUbicacion"></dxi-item>
+        <dxi-item dataField="idUbicacion">
+          <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
+        </dxi-item>
         <dxi-item dataField="ultimoMtto" editorType="dxDateBox"></dxi-item>
         <dxi-item dataField="diasSinMtto" editorType="dxNumberBox"></dxi-item>
+        <dxi-item dataField="tipo">
+          <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
+        </dxi-item>
       </dxi-item>
       <dxi-item itemType="group" [colCount]="3" [colSpan]="2">
         <dxi-item
@@ -83,11 +95,17 @@
     <dxi-column dataField="ultimoMtto"></dxi-column>
     <dxi-column dataField="diasSinMtto"></dxi-column>
     <dxi-column dataField="observaciones"></dxi-column>
-    <dxi-column dataField="tipo" [visible]="true"></dxi-column>
+    <dxi-column dataField="tipo">
+      <dxo-lookup [dataSource]="tipoHerramienta" displayExpr="nombre" valueExpr="id">
+      </dxo-lookup>
+    </dxi-column>
     <dxi-column dataField="idMedidaHerramienta" [visible]="false"></dxi-column>
     <dxi-column dataField="medidaHerramienta" [visible]="false"></dxi-column>
     <dxi-column dataField="marca" [visible]="false"></dxi-column>
     <dxi-column dataField="modelo" [visible]="false"></dxi-column>
+
+    <!-- CRUD Operations -->
+
 
     <!-- Pagin, Filter, Search zone -->
     <dxo-filter-row
