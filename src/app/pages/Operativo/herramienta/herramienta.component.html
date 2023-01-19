@@ -17,6 +17,15 @@
     (onRowRemoving)="deleteHerramienta($event)"
     >
 
+    <dxo-load-panel
+    [enabled]="true"
+    [showIndicator]="true"    
+    [showPane]="true"
+    [shading]="true"    
+    shadingColor="rgba(0, 0, 0, 0.2)"
+    >
+    </dxo-load-panel>
+
     <!-- Edit zone -->
     <dxo-editing
     mode="popup"
@@ -32,6 +41,18 @@
       [height]="550"
     >
     </dxo-popup>
+
+    <!-- custom texts -->
+    <dxo-texts
+    cancelRowChanges="Cancelar"
+    saveRowChanges="Guardar"
+    addRow="Agregar nuevo registro"
+    editRow="Editar"
+    deleteRow="Eliminar"
+    confirmDeleteTitle="Eliminar Herramienta"
+    confirmDeleteMessage="¿Estas seguro que quieres eliminar esta Herramienta?"
+    >
+    </dxo-texts>
 
     <!-- Edit Form -->
     <dxo-form>
@@ -73,7 +94,11 @@
   </dxo-editing>
 
     <!-- Row zone -->
-    <dxi-column dataField="id" [visible]="false"></dxi-column>
+    <dxi-column dataField="id" [visible]="false" [showInColumnChooser]="false" ></dxi-column>
+    <dxi-column dataField="tipo">
+      <dxo-lookup [dataSource]="tipoHerramienta" displayExpr="nombre" valueExpr="id">
+      </dxo-lookup>
+    </dxi-column>
     <dxi-column dataField="num"></dxi-column>
     <dxi-column dataField="descripcion"></dxi-column>
     <dxi-column dataField="numeroSerie"></dxi-column>
@@ -95,14 +120,7 @@
     <dxi-column dataField="ultimoMtto"></dxi-column>
     <dxi-column dataField="diasSinMtto"></dxi-column>
     <dxi-column dataField="observaciones"></dxi-column>
-    <dxi-column dataField="tipo">
-      <dxo-lookup [dataSource]="tipoHerramienta" displayExpr="nombre" valueExpr="id">
-      </dxo-lookup>
-    </dxi-column>
-    <dxi-column dataField="idMedidaHerramienta" [visible]="false"></dxi-column>
-    <dxi-column dataField="medidaHerramienta" [visible]="false"></dxi-column>
-    <dxi-column dataField="marca" [visible]="false"></dxi-column>
-    <dxi-column dataField="modelo" [visible]="false"></dxi-column>
+    <dxi-column dataField="idMedidaHerramienta" [visible]="false" [showInColumnChooser]="false"></dxi-column>
 
     <!-- CRUD Operations -->
 
@@ -119,17 +137,22 @@
       [allowedPageSizes]="[5, 10, 20]"
       [showNavigationButtons]="true"
       [showInfo]="true"
-      infoText="Page #{0}. Total: {1} ({2} items)"
+      infoText="Pagina #{0}. Total: {1} ({2} elementos)"
     ></dxo-pager>
 
     <dxo-header-filter [visible]="true"></dxo-header-filter>
     <dxo-search-panel
       [visible]="true"
       [width]="240"
-      placeholder="Search..."
+      placeholder="Buscar..."
     ></dxo-search-panel>
 
-    <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+    <dxo-column-chooser 
+    [enabled]="true"
+    [width]="400"
+    emptyPanelText="Arrastra una columna para ocultarla aqui"
+    title="Almacen de columnas">
+    </dxo-column-chooser>
     <!-- column fixing allows user to edit without horizontal scrolling -->
     <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
 

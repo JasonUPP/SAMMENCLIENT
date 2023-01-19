@@ -3,6 +3,7 @@ import notify from 'devextreme/ui/notify';
 import { customJson } from 'src/app/Models/customJson';
 import { getHerramientasDto } from 'src/app/Models/Dtos/Operativo/getHerramientasDto';
 import { Herramienta } from 'src/app/Models/Operativo/HerramientaModel';
+import { response } from 'src/app/Models/response';
 import { OperativoService } from 'src/app/shared/services/operativo.service';
 import { EstatusList } from 'src/assets/EstatusList';
 import { TipoHerramientaList } from 'src/assets/TipoHerramientaList';
@@ -36,8 +37,8 @@ export class HerramientaComponent implements OnInit {
         this.dataSource = data.herramientas;
         this.ubicaciones = data.ubicaciones;
       },
-      error: (error) => {
-        notify(error.message, 'error', 2000);   
+      error: (e) => {
+        notify(typeof(e.error) == 'object' ? e.message : e.error , 'error', 2000);
       },
       complete: () => this.loading = false
     });
@@ -46,12 +47,13 @@ export class HerramientaComponent implements OnInit {
   deleteHerramienta(e:any){
     this.operativoService.deleteHerramienta(e).
     subscribe({
-      next: (e:any) => {
-        console.log(e);
+      next: (e:response) => {
+        notify(e.message, 'success', 2000);
         
       },
       error: (e:any) => {
-        notify(e.message, 'error', 2000);        
+        notify(typeof(e.error) == 'object' ? e.message : e.error , 'error', 2000);
+        
       },
       complete: () => {
         
@@ -62,12 +64,12 @@ export class HerramientaComponent implements OnInit {
   updateHerramienta(e:any){
     this.operativoService.updateHerramientas(e).
     subscribe({
-      next: (e:any) => {
-        console.log(e);
-        
+      next: (e:response) => {
+        notify(e.message, 'success', 2000);      
       },
-      error: (e:any) => {
-        notify(e.message, 'error', 2000);        
+      error: (e:any) => {        
+        notify(typeof(e.error) == 'object' ? e.message : e.error , 'error', 2000);
+        
       },
       complete: () => {
         
@@ -78,12 +80,13 @@ export class HerramientaComponent implements OnInit {
   newHerramienta(e:any){
     this.operativoService.newHerramienta(e).
     subscribe({
-      next: (e:any) => {
-        console.log(e);
+      next: (e:response) => {
+        notify(e.message, 'success', 2000);
         
       },
       error: (e:any) => {
-        notify(e.message, 'error', 2000);        
+        notify(typeof(e.error) == 'object' ? e.message : e.error , 'error', 2000);
+        
       },
       complete: () => {
         

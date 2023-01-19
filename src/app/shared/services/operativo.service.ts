@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { getHerramientasDto } from "src/app/Models/Dtos/Operativo/getHerramientasDto";
 import { Herramienta } from "src/app/Models/Operativo/HerramientaModel";
+import { response } from "src/app/Models/response";
 import { environment } from "src/environments/environment";
 
 const baseurl = environment.apiURL + 'api/';
@@ -24,13 +25,13 @@ export class OperativoService {
     updateHerramientas({data}:any){
       const herramienta: Herramienta = data;
       //Puede que aqui halla tema porque las porpiedades se mandan el minuscula      
-      return this.http.put(`${herramientaUrl}UpdateHerramienta`, herramienta);
+      return this.http.put<response>(`${herramientaUrl}UpdateHerramienta`, herramienta);
 
     }
 
     deleteHerramienta(e:any){
       const id:number = e.key;      
-      return this.http.delete(`${herramientaUrl}DeleteHerramienta/${id}`);
+      return this.http.delete<response>(`${herramientaUrl}DeleteHerramienta/${id}`);
     }
 
     newHerramienta({data}:any){
@@ -53,7 +54,7 @@ export class OperativoService {
         Observaciones: data.observaciones ? data.observaciones : '',
         Tipo: data.tipo //? data.tipo : 0,
       };      
-      return this.http.post(`${herramientaUrl}NewHerramienta`, herramienta);      
+      return this.http.post<response>(`${herramientaUrl}NewHerramienta`, herramienta);      
     }
 
     getMedidaHerramientas(){
