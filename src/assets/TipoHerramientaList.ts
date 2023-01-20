@@ -7,11 +7,11 @@ export const TipoHerramientaList: customJson[] = [
     },    
     {
         id : 1,
-        nombre : 'EnsamblesSeguridad'
+        nombre : 'Ensambles de Seguridad'
     },    
     {
         id : 2,
-        nombre : 'BarrasRigidas'
+        nombre : 'Barras Rigidas'
     },    
     {
         id : 3,
@@ -19,11 +19,11 @@ export const TipoHerramientaList: customJson[] = [
     },    
     {
         id : 4,
-        nombre : 'ConectoresEZ'
+        nombre : 'Conectores EZ'
     },    
     {
         id : 5,
-        nombre : 'ConectoresRollOn'
+        nombre : 'Conectores Roll On'
     },    
     {
         id : 6,
@@ -31,7 +31,7 @@ export const TipoHerramientaList: customJson[] = [
     },    
     {
         id : 7,
-        nombre : 'MotoresFondoYFiltros'
+        nombre : 'Motores de Fondo Y Filtros'
     },    
     {
         id : 8,
@@ -51,14 +51,14 @@ export const TipoHerramientaList: customJson[] = [
     },    
     {
         id : 12,
-        nombre : 'SellosPlomo'
+        nombre : 'Sellos de Plomo'
     },    
     {
         id : 13,
-        nombre : 'ZapatasLavadoras'
+        nombre : 'Zapatas Lavadoras'
     },    
     {
         id : 14,
-        nombre : 'JuntasRodilla'
+        nombre : 'Juntas de Rodilla'
     },    
 ]

@@ -48,16 +48,12 @@ export class HerramientaComponent implements OnInit {
     this.operativoService.deleteHerramienta(e).
     subscribe({
       next: (e:response) => {
-        notify(e.message, 'success', 2000);
-        
+        notify(e.message, 'success', 2000);        
       },
       error: (e:any) => {
-        notify(typeof(e.error) == 'object' ? e.message : e.error , 'error', 2000);
-        
+        notify(typeof(e.error) == 'object' ? e.message : e.error , 'error', 2000);        
       },
-      complete: () => {
-        
-      }
+      complete: () => this.loading = false
     });  
   }
 
@@ -68,12 +64,9 @@ export class HerramientaComponent implements OnInit {
         notify(e.message, 'success', 2000);      
       },
       error: (e:any) => {        
-        notify(typeof(e.error) == 'object' ? e.message : e.error , 'error', 2000);
-        
+        notify(typeof(e.error) == 'object' ? e.message : e.error , 'error', 2000);        
       },
-      complete: () => {
-        
-      }
+      complete: () => this.loading = false
     });    
   }
 
@@ -88,9 +81,7 @@ export class HerramientaComponent implements OnInit {
         notify(typeof(e.error) == 'object' ? e.message : e.error , 'error', 2000);
         
       },
-      complete: () => {
-        
-      }
+      complete: () => this.loading = false
     }); 
   }
 

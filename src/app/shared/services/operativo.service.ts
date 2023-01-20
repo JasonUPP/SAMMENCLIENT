@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { getHerramientasDto } from "src/app/Models/Dtos/Operativo/getHerramientasDto";
 import { Herramienta } from "src/app/Models/Operativo/HerramientaModel";
+import { MedidaHerramienta } from "src/app/Models/Operativo/medidaHerramientaModel";
 import { response } from "src/app/Models/response";
 import { environment } from "src/environments/environment";
 
@@ -18,6 +19,7 @@ export class OperativoService {
         return this.http.get(`${baseurl}WeatherForecast`);
     }
 
+    //Herramientas
     getHerramientas(){
       return this.http.get<getHerramientasDto>(`${herramientaUrl}GetHerramientas`);
     }
@@ -57,8 +59,26 @@ export class OperativoService {
       return this.http.post<response>(`${herramientaUrl}NewHerramienta`, herramienta);      
     }
 
+
+    //MedidaHerramientas
     getMedidaHerramientas(){
-      return this.http.get(`${medidaHerramientaUrl}GetMedidasHerramientas`);
+      return this.http.get<MedidaHerramienta[]>(`${medidaHerramientaUrl}GetMedidasHerramientas`);
     }
 
+    updateMedidaHerramienta({data}:any){
+      const medidaH: MedidaHerramienta = data;
+      return this.http.put<response>(`${medidaHerramientaUrl}UpdateMedidaHerramienta`, medidaH);
+    }
+
+    deleteMedidaHerramienta({key}:any){
+      const id:number = key;
+      return this.http.delete<response>(`${medidaHerramientaUrl}DeleteMedidaHerramienta/${id}`);
+    }
+
+    newMedidaHerramienta({data}:any){
+      //hacer el cast
+      //poner lo restante en el html
+      //hacer test de medida
+      return this.http.post<response>(`${medidaHerramientaUrl}NewMedidaHerramienta`, data);
+    }
 }

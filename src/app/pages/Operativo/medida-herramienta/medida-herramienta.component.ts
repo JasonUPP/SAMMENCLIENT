@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import notify from 'devextreme/ui/notify';
+import { customJson } from 'src/app/Models/customJson';
+import { MedidaHerramienta } from 'src/app/Models/Operativo/medidaHerramientaModel';
+import { response } from 'src/app/Models/response';
 import { OperativoService } from 'src/app/shared/services/operativo.service';
+import { EstatusList } from 'src/assets/EstatusList';
+import { TipoMedidaHerramientaList } from 'src/assets/TipoMedidaHerramienta';
 
 @Component({
   selector: 'app-medida-herramienta',
@@ -9,9 +14,16 @@ import { OperativoService } from 'src/app/shared/services/operativo.service';
 })
 export class MedidaHerramientaComponent implements OnInit {
   loading: boolean = true;
-  dataSource: any;
+  dataSource: MedidaHerramienta[] = [];
+  requiredMsj:string = 'Este campo es requerido';
+  estatusList: customJson[];
+  tipoMedidaHerramienta: customJson[];
 
-  constructor(private operativoService: OperativoService){}
+
+  constructor(private operativoService: OperativoService){
+    this.estatusList = EstatusList;
+    this.tipoMedidaHerramienta = TipoMedidaHerramientaList;
+  }
 
   ngOnInit(): void {
     this.getMedidasHerramientas();
@@ -20,16 +32,53 @@ export class MedidaHerramientaComponent implements OnInit {
   getMedidasHerramientas(){
     this.operativoService.getMedidaHerramientas()
     .subscribe({
-      next: (data:any) => {
-        console.log(data);
-        
+      next: (data:MedidaHerramienta[]) => {
         this.dataSource = data;
       },
       error: (e) => {
-        notify(e.error, 'error', 2000);
+        notify(typeof(e.error) == 'object' ? e.message : e.error , 'error', 2000);
       },
       complete: () => this.loading = false
     });
-  }  
+  }
+
+  deleteMedidaHerramienta(e:any){
+    this.operativoService.deleteMedidaHerramienta(e).
+    subscribe({
+      next: (e:response) => {
+        notify(e.message, 'success', 2000);
+      },
+      error: (e) => {
+        notify(typeof(e.error) == 'object' ? e.message : e.error , 'error', 2000);
+      },
+      complete: () => this.loading = false
+    });
+  }
+
+  UpdateMedidaHerramienta(e:any){
+    this.operativoService.updateMedidaHerramienta(e).
+    subscribe({
+      next: (e:response) => {
+        notify(e.message, 'success', 2000);
+      },
+      error: (e) => {
+        notify(typeof(e.error) == 'object' ? e.message : e.error , 'error', 2000);
+      },
+      complete: () => this.loading = false
+    });
+  }
+
+  NewMedidaHerramienta(e:any){
+    this.operativoService.newMedidaHerramienta(e).
+    subscribe({
+      next: (e:response) => {
+        notify(e.message, 'success', 2000);
+      },
+      error: (e) => {
+        notify(typeof(e.error) == 'object' ? e.message : e.error , 'error', 2000);
+      },
+      complete: () => this.loading = false
+    });
+  }
 
 }
