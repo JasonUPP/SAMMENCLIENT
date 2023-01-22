@@ -11,6 +11,75 @@
     [columnAutoWidth]="true"
     [rowAlternationEnabled]="true"
     [allowColumnReordering]="true"
-    [columnHidingEnabled]="false">
-  >
+    [allowColumnResizing]="true"
+    [columnHidingEnabled]="false"
+    
+    >
+
+    <dxo-load-panel
+    [enabled]="true"
+    [showIndicator]="true"    
+    [showPane]="true"
+    [shading]="true"    
+    shadingColor="rgba(0, 0, 0, 0.2)"
+    >
+    </dxo-load-panel>
+    <!-- Edit Zone -->
+    <!-- Añadir esta zona -->
+
+    <!-- Row zone -->
+    <dxi-column dataField="id" [visible]="false" [showInColumnChooser]="false"></dxi-column>
+    <dxi-column dataField="tipo">
+      <dxo-lookup [dataSource]="tipoMedidaHerramienta" displayExpr="nombre" valueExpr="id">
+      </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="numero"></dxi-column>
+    <dxi-column dataField="descripcion"></dxi-column>
+    <dxi-column dataField="roscaCaja"></dxi-column>
+    <dxi-column dataField="roscaPin"></dxi-column>
+    <dxi-column dataField="diametroExterno"></dxi-column>
+    <dxi-column dataField="balinPaso"></dxi-column>
+    <dxi-column dataField="longitud"></dxi-column>
+    <dxi-column dataField="numeroSerie"></dxi-column>
+    <dxi-column dataField="estatus">
+      <dxo-lookup [dataSource]="estatusList" displayExpr="nombre" valueExpr="id">
+      </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="tensionMaxima"></dxi-column>
+    <dxi-column dataField="presionMaxima"></dxi-column>
+    <dxi-column dataField="balinSub"></dxi-column>
+    <dxi-column dataField="balinDesconector"></dxi-column>
+
+    <!-- Pagin, Filter, Search zone --> 
+    <dxo-filter-row
+      [visible]="true"
+      [applyFilter]="true">
+    </dxo-filter-row>
+
+    <dxo-paging [pageSize]="5"></dxo-paging>
+    <dxo-pager
+      [showPageSizeSelector]="true"
+      [allowedPageSizes]="[5, 10, 20]"
+      [showNavigationButtons]="true"
+      [showInfo]="true"
+      infoText="Pagina #{0}. Total: {1} ({2} elementos)"
+    ></dxo-pager>
+
+    <dxo-header-filter [visible]="true"></dxo-header-filter>
+    <dxo-search-panel
+      [visible]="true"
+      [width]="240"
+      placeholder="Buscar..."
+    ></dxo-search-panel>
+
+    <dxo-column-chooser 
+    [enabled]="true"
+    [width]="400"
+    emptyPanelText="Arrastra una columna para ocultarla aqui"
+    title="Almacen de columnas">
+    </dxo-column-chooser>
+    <!-- column fixing allows user to edit without horizontal scrolling -->
+    <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+
+  
 </dx-data-grid>
