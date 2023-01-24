@@ -8,10 +8,10 @@ export interface MedidaHerramienta {
     BalinPaso: string;        
     Longitud: number;
     NumeroSerie: string;
-    Estatus: string;        
+    Estatus: number;        
     TensionMaxima: number;        
     PresionMaxima: number;
     BalinSub: string;
     BalinDesconector: string;
-    Tipo: string;
+    Tipo: number;
 };

@@ -40,21 +40,21 @@ export class OperativoService {
       const herramienta: Herramienta = {
         Id: data.id ? data.id : 0,
         Num:  data.num ? data.num : 0,
-        Descripcion: data.descripcion,// ? data.descripcion : '',
-        NumeroSerie: data.numeroSerie,// ? data.numeroSerie : '',
+        Descripcion: data.descripcion,
+        NumeroSerie: data.numeroSerie,
         NumeroInforme: data.numeroInforme ? data.numeroInforme : '',
         FechaVencimiento: data.fechaVencimiento ? data.fechaVencimiento : new Date(),
         Dias: data.dias ? data.dias : 0,
-        Estatus: data.estatus,// ? data.estatus : 0,
+        Estatus: data.estatus,
         FechaEntrega: data.fechaEntrega ? data.fechaEntrega : new Date(),
         DiasCampo: data.diasCampo ? data.diasCampo : 0,
         Acuse: data.acuse ? data.acuse : 0,
         Firma: data.firma ? data.firma : '',
-        IdUbicacion: data.idUbicacion,// ? data.idUbicacion : 0,
+        IdUbicacion: data.idUbicacion,
         UltimoMtto: data.ultimoMtto ? data.ultimoMtto : new Date(),
         DiasSinMtto: data.diasSinMtto ? data.diasSinMtto : 0,
         Observaciones: data.observaciones ? data.observaciones : '',
-        Tipo: data.tipo //? data.tipo : 0,
+        Tipo: data.tipo,
       };      
       return this.http.post<response>(`${herramientaUrl}NewHerramienta`, herramienta);      
     }
@@ -76,9 +76,24 @@ export class OperativoService {
     }
 
     newMedidaHerramienta({data}:any){
-      //hacer el cast
-      //poner lo restante en el html
-      //hacer test de medida
-      return this.http.post<response>(`${medidaHerramientaUrl}NewMedidaHerramienta`, data);
+      const medidaHerramienta: MedidaHerramienta = {
+        Id: data.id ? data.id : 0,
+        Numero: data.numero ? data.numero : 0,
+        Descripcion : data.descripcion,
+        RoscaCaja : data.roscaCaja ? data.roscaCaja : 0,
+        RoscaPin : data.roscaPin ? data.roscaPin : 0,
+        DiametroExterno : data.diametroExterno ? data.diametroExterno : 0,
+        BalinPaso : data.balinPaso ? data.balinPaso : '',
+        Longitud : data.longitud ? data.longitud : 0,
+        NumeroSerie : data.numeroSerie,
+        Estatus : data.estatus,
+        TensionMaxima : data.tensionMaxima ? data.tensionMaxima : 0,
+        PresionMaxima : data.presionMaxima ? data.presionMaxima : 0,
+        BalinSub : data.balinSub ? data.balinSub : '',
+        BalinDesconector : data.balinDesconector ? data.balinDesconector : '',
+        Tipo : data.tipo,
+      };
+
+      return this.http.post<response>(`${medidaHerramientaUrl}NewMedidaHerramienta`, medidaHerramienta);
     }
 }

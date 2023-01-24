@@ -13,7 +13,9 @@
     [allowColumnReordering]="true"
     [allowColumnResizing]="true"
     [columnHidingEnabled]="false"
-    
+    (onRowUpdated)="UpdateMedidaHerramienta($event)"    
+    (onRowInserting)="NewMedidaHerramienta($event)"
+    (onRowRemoving)="deleteMedidaHerramienta($event)"
     >
 
     <dxo-load-panel
@@ -24,8 +26,62 @@
     shadingColor="rgba(0, 0, 0, 0.2)"
     >
     </dxo-load-panel>
+    
     <!-- Edit Zone -->
-    <!-- Añadir esta zona -->
+    <dxo-editing
+    mode="popup"
+    refreshMode="reshape"
+    [allowUpdating]="true"
+    [allowAdding]="true"
+    [allowDeleting]="true">
+
+      <dxo-popup
+      title="Editar Medida Herramienta"
+      [showTitle]="true"
+      [width]="1000"
+      [height]="550">
+      </dxo-popup>    
+
+      <!-- custom texts -->
+      <dxo-texts
+      cancelRowChanges="Cancelar"
+      saveRowChanges="Guardar"
+      addRow="Agregar nuevo elemento"
+      editRow="Editar"
+      deleteRow="Eliminar"
+      confirmDeleteTitle="Eliminar Medida Herramienta"
+      confirmDeleteMessage="¿Estas seguro que quieres eliminar esta Medida Herramienta?">
+      </dxo-texts>
+
+      <dxo-form>
+        <dxi-item itemType="group" [colCount]="3" [colSpan]="2">          
+          <dxi-item dataField="numero" editorType="dxNumberBox"></dxi-item>
+          <dxi-item dataField="descripcion">
+            <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
+          </dxi-item>
+          <dxi-item dataField="roscaCaja" editorType="dxNumberBox"></dxi-item>
+          <dxi-item dataField="roscaPin" editorType="dxNumberBox"></dxi-item>
+          <dxi-item dataField="diametroExterno" editorType="dxNumberBox"></dxi-item>
+          <dxi-item dataField="balinPaso"></dxi-item>
+          <dxi-item dataField="longitud" editorType="dxNumberBox"></dxi-item>
+          <dxi-item dataField="numeroSerie">
+            <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
+          </dxi-item>
+          <dxi-item dataField="tensionMaxima" editorType="dxNumberBox"></dxi-item>
+          <dxi-item dataField="presionMaxima" editorType="dxNumberBox"></dxi-item>
+          <dxi-item dataField="balinSub"></dxi-item>
+          <dxi-item dataField="balinDesconector"></dxi-item>
+          <dxi-item dataField="estatus">
+            <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
+          </dxi-item>
+          <dxi-item dataField="tipo">
+            <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
+          </dxi-item>
+        </dxi-item>
+
+
+      </dxo-form>
+    </dxo-editing>
 
     <!-- Row zone -->
     <dxi-column dataField="id" [visible]="false" [showInColumnChooser]="false"></dxi-column>
