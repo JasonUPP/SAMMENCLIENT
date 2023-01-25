@@ -15,6 +15,10 @@ export const navigation = [
       {
         text: 'Medida Herramienta',
         path: 'Operativo/MedidaHerramienta'
+      },
+      {
+        text: 'Historial Herramienta',
+        path: 'Operativo/HistorialHerramienta'
       }
     ]
   },

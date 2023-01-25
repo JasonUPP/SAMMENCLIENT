@@ -13,7 +13,7 @@ import { OperativoService } from './shared/services/operativo.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

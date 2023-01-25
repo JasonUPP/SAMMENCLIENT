@@ -1,7 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { getHerramientasDto } from "src/app/Models/Dtos/Operativo/getHerramientasDto";
+import { getHistorialHerramientaDto } from "src/app/Models/Dtos/Operativo/getHistorialHerramientaDto";
 import { Herramienta } from "src/app/Models/Operativo/HerramientaModel";
+import { HistorialHerramienta } from "src/app/Models/Operativo/historialHerramientaModel";
 import { MedidaHerramienta } from "src/app/Models/Operativo/medidaHerramientaModel";
 import { response } from "src/app/Models/response";
 import { environment } from "src/environments/environment";
@@ -9,6 +11,7 @@ import { environment } from "src/environments/environment";
 const baseurl = environment.apiURL + 'api/';
 const herramientaUrl = baseurl + 'Herramienta/';
 const medidaHerramientaUrl = baseurl + 'MedidaHerramienta/';
+const historialHerramientaUrl = baseurl + 'HistorialHerramienta/';
 
 @Injectable()
 export class OperativoService {      
@@ -38,7 +41,7 @@ export class OperativoService {
 
     newHerramienta({data}:any){
       const herramienta: Herramienta = {
-        Id: data.id ? data.id : 0,
+        Id: 0,
         Num:  data.num ? data.num : 0,
         Descripcion: data.descripcion,
         NumeroSerie: data.numeroSerie,
@@ -77,7 +80,7 @@ export class OperativoService {
 
     newMedidaHerramienta({data}:any){
       const medidaHerramienta: MedidaHerramienta = {
-        Id: data.id ? data.id : 0,
+        Id: 0,
         Numero: data.numero ? data.numero : 0,
         Descripcion : data.descripcion,
         RoscaCaja : data.roscaCaja ? data.roscaCaja : 0,
@@ -95,5 +98,55 @@ export class OperativoService {
       };
 
       return this.http.post<response>(`${medidaHerramientaUrl}NewMedidaHerramienta`, medidaHerramienta);
+    }
+
+
+    //HistorialHerramientas
+    getHistorialHerramienta(){
+      return this.http.get<getHistorialHerramientaDto>(`${historialHerramientaUrl}Get`);
+    }
+
+    updateHistorialHerramienta({data}:any){
+      const hist: HistorialHerramienta = data
+      debugger;
+      return this.http.put<response>(`${historialHerramientaUrl}Update`, hist);
+    }
+
+    deleteHistorialHerramienta({key}:any){
+      const id:number = key;
+      return this.http.delete<response>(`${historialHerramientaUrl}Delete/${id}`);
+    }
+
+    addHistorialHerramienta({data}:any){
+      const hist: HistorialHerramienta = {
+        Id: 0,
+        Numero: data.numero ? data.numero : 0,
+        Fecha: data.fecha ? data.fecha : Date.now(),
+        Pozo: data.pozo ? data.pozo : 0,
+        Estructura: data.estructura ? data.estructura : '',
+        TipoOperacion: data.tipoOperacion,
+        Unidad: data.unidad,
+        IdOperador: data.idOperador,
+        ProfundidadMax: data.profundidadMax ? data.profundidadMax : 0,
+        OD: data.oD ? data.oD : 0,
+        MaxWHP: data.maxWHP ? data.maxWHP : 0,
+        TemperaturaMaxima: data.temperaturaMaxima ? data.temperaturaMaxima : 0,
+        MaxCircPressure: data.maxCircPressure ? data.maxCircPressure : 0,
+        Diesel: data.diesel ? data.diesel : 0,
+        Solvente: data.solvente ? data.solvente : 0,
+        Acido: data.acido ? data.acido : 0,
+        Divergente: data.divergente ? data.divergente : 0,
+        Nitrogeno: data.nitrogeno ? data.nitrogeno : 0,
+        GelLineal: data.gelLineal ? data.gelLineal : 0,
+        Agua: data.agua ? data.agua : 0,
+        Inhibidor: data.inhibidor ? data.inhibidor : 0,
+        HorasOperativas: data.horasOperativas ? data.horasOperativas : 0,
+        HorasEfectivas: data.horasEfectivas ? data.horasEfectivas : 0,
+        Notas: data.notas ? data.notas : '',
+        Marca: data.marca ? data.marca : '',
+        Modelo: data.modelo ? data.modelo : '',
+        NumeroSerie: data.numeroSerie ? data.numeroSerie : '', 
+      };
+      return this.http.post<response>(`${historialHerramientaUrl}Add`, hist);
     }
 }

@@ -103,13 +103,13 @@
     <dxi-column dataField="descripcion"></dxi-column>
     <dxi-column dataField="numeroSerie"></dxi-column>
     <dxi-column dataField="numeroInforme"></dxi-column>
-    <dxi-column dataField="fechaVencimiento"></dxi-column>
+    <dxi-column dataField="fechaVencimiento" dataType="date"></dxi-column>
     <dxi-column dataField="dias"></dxi-column>
     <dxi-column dataField="estatus">
       <dxo-lookup [dataSource]="estatusList" displayExpr="nombre" valueExpr="id">
       </dxo-lookup>
     </dxi-column>
-    <dxi-column dataField="fechaEntrega"></dxi-column>
+    <dxi-column dataField="fechaEntrega" dataType="date"></dxi-column>
     <dxi-column dataField="diasCampo"></dxi-column>
     <dxi-column dataField="acuse"></dxi-column>
     <dxi-column dataField="firma"></dxi-column>

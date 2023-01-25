@@ -1,0 +1,164 @@
+<h2 class="content-block">Historial Herramienta</h2>
+
+<dx-data-grid 
+    id="gridHistorialHerramientas"
+    class="dx-card wide-card"
+    [dataSource]="dataSource"
+    [showBorders]="true"
+    keyExpr="id"
+    [focusedRowEnabled]="true"
+    [focusedRowIndex]="0"
+    [columnAutoWidth]="true"
+    [rowAlternationEnabled]="true"
+    [allowColumnReordering]="true"
+    [allowColumnResizing]="true"
+    [columnHidingEnabled]="false"
+    (onRowUpdated)="updateHistorialHerramienta($event)"    
+    (onRowInserting)="addHistorialHerramienta($event)"
+    (onRowRemoving)="deleteHistorialHerramienta($event)"
+    >
+
+    <dxo-load-panel
+    [enabled]="true"
+    [showIndicator]="true"    
+    [showPane]="true"
+    [shading]="true"    
+    shadingColor="rgba(0, 0, 0, 0.2)"
+    >
+    </dxo-load-panel>
+    
+    <!-- Edit Zone -->
+    <dxo-editing
+    mode="popup"
+    refreshMode="reshape"
+    [allowAdding]="true"
+    [allowUpdating]="true"
+    [allowDeleting]="true">
+
+      <dxo-popup
+      title="Editar Historial Herramienta"
+      [showTitle]="true"
+      [width]="1000"
+      [height]="550">
+      </dxo-popup>    
+
+      <!-- custom texts -->
+      <dxo-texts
+      cancelRowChanges="Cancelar"
+      saveRowChanges="Guardar"
+      addRow="Agregar nuevo elemento"
+      editRow="Editar"
+      deleteRow="Eliminar"
+      confirmDeleteTitle="Eliminar Historial Herramienta"
+      confirmDeleteMessage="¿Estas seguro que quieres eliminar esta Historial Herramienta?">
+      </dxo-texts>
+
+      <dxo-form>
+        <dxi-item itemType="group" [colCount]="3" [colSpan]="2">            
+            <dxi-item dataField="numero" editorType="dxNumberBox"></dxi-item>
+            <dxi-item dataField="fecha" editorType="dxDateBox"></dxi-item>
+            <dxi-item dataField="pozo"></dxi-item>
+            <dxi-item dataField="estructura"></dxi-item>
+            <dxi-item dataField="tipoOperacion">
+                <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="unidad">
+                <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="idOperador">
+                <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="profundidadMax" editorType="dxNumberBox"></dxi-item>
+            <dxi-item dataField="od" editorType="dxNumberBox"></dxi-item>
+            <dxi-item dataField="maxWHP" editorType="dxNumberBox"></dxi-item>
+            <dxi-item dataField="temperaturaMaxima" editorType="dxNumberBox"></dxi-item>
+            <dxi-item dataField="maxCircPressure" editorType="dxNumberBox"></dxi-item>
+            <dxi-item dataField="diesel" editorType="dxNumberBox"></dxi-item>
+            <dxi-item dataField="solvente" editorType="dxNumberBox"></dxi-item>
+            <dxi-item dataField="acido" editorType="dxNumberBox"></dxi-item>
+            <dxi-item dataField="divergente" editorType="dxNumberBox"></dxi-item>
+            <dxi-item dataField="nitrogeno" editorType="dxNumberBox"></dxi-item>
+            <dxi-item dataField="gelLineal" editorType="dxNumberBox"></dxi-item>
+            <dxi-item dataField="agua" editorType="dxNumberBox"></dxi-item>
+            <dxi-item dataField="inhibidor" editorType="dxNumberBox"></dxi-item>
+            <dxi-item dataField="horasOperativas" editorType="dxNumberBox"></dxi-item>
+            <dxi-item dataField="horasEfectivas" editorType="dxNumberBox"></dxi-item>
+            <dxi-item dataField="notas"></dxi-item>
+            <dxi-item dataField="marca"></dxi-item>
+            <dxi-item dataField="modelo"></dxi-item>
+            <dxi-item dataField="numeroSerie"></dxi-item>            
+        </dxi-item>
+      </dxo-form>
+    </dxo-editing>
+
+    <!-- Row zone -->
+    <dxi-column dataField="id" [visible]="false" [showInColumnChooser]="false"></dxi-column>
+    <dxi-column dataField="numero"></dxi-column>
+    <dxi-column dataField="fecha" dataType="date"></dxi-column>
+    <dxi-column dataField="pozo"></dxi-column>
+    <dxi-column dataField="estructura"></dxi-column>
+    <dxi-column dataField="tipoOperacion">
+        <dxo-lookup [dataSource]="tipoOperacion" displayExpr="nombre" valueExpr="id">
+        </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="unidad">
+        <dxo-lookup [dataSource]="unidad" displayExpr="nombre" valueExpr="id">
+        </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="idOperador" caption="Operador">
+        <dxo-lookup [dataSource]="operadores" displayExpr="nombre" valueExpr="id">
+        </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="profundidadMax"></dxi-column>
+    <dxi-column dataField="od"></dxi-column>
+    <dxi-column dataField="maxWHP"></dxi-column>
+    <dxi-column dataField="temperaturaMaxima"></dxi-column>
+    <dxi-column dataField="maxCircPressure"></dxi-column>
+    <dxi-column dataField="diesel"></dxi-column>
+    <dxi-column dataField="solvente"></dxi-column>
+    <dxi-column dataField="acido"></dxi-column>
+    <dxi-column dataField="divergente"></dxi-column>
+    <dxi-column dataField="nitrogeno"></dxi-column>
+    <dxi-column dataField="gelLineal"></dxi-column>
+    <dxi-column dataField="agua"></dxi-column>
+    <dxi-column dataField="inhibidor"></dxi-column>
+    <dxi-column dataField="horasOperativas"></dxi-column>
+    <dxi-column dataField="horasEfectivas"></dxi-column>
+    <dxi-column dataField="notas"></dxi-column>
+    <dxi-column dataField="marca"></dxi-column>
+    <dxi-column dataField="modelo"></dxi-column>
+    <dxi-column dataField="numeroSerie"></dxi-column>
+
+
+    <!-- Pagin, Filter, Search zone --> 
+    <dxo-filter-row
+      [visible]="true"
+      [applyFilter]="true">
+    </dxo-filter-row>
+
+    <dxo-paging [pageSize]="5"></dxo-paging>
+    <dxo-pager
+      [showPageSizeSelector]="true"
+      [allowedPageSizes]="[5, 10, 20]"
+      [showNavigationButtons]="true"
+      [showInfo]="true"
+      infoText="Pagina #{0}. Total: {1} ({2} elementos)"
+    ></dxo-pager>
+
+    <dxo-header-filter [visible]="true"></dxo-header-filter>
+    <dxo-search-panel
+      [visible]="true"
+      [width]="240"
+      placeholder="Buscar..."
+    ></dxo-search-panel>
+
+    <dxo-column-chooser 
+    [enabled]="true"
+    [width]="400"
+    emptyPanelText="Arrastra una columna para ocultarla aqui"
+    title="Almacen de columnas">
+    </dxo-column-chooser>
+    <!-- column fixing allows user to edit without horizontal scrolling -->
+    <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+    
+</dx-data-grid>
