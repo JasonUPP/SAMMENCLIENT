@@ -5,6 +5,7 @@ import { getHistorialHerramientaDto } from "src/app/Models/Dtos/Operativo/getHis
 import { Herramienta } from "src/app/Models/Operativo/HerramientaModel";
 import { HistorialHerramienta } from "src/app/Models/Operativo/historialHerramientaModel";
 import { MedidaHerramienta } from "src/app/Models/Operativo/medidaHerramientaModel";
+import { Operador } from "src/app/Models/Operativo/operadorModel";
 import { response } from "src/app/Models/response";
 import { environment } from "src/environments/environment";
 
@@ -12,6 +13,7 @@ const baseurl = environment.apiURL + 'api/';
 const herramientaUrl = baseurl + 'Herramienta/';
 const medidaHerramientaUrl = baseurl + 'MedidaHerramienta/';
 const historialHerramientaUrl = baseurl + 'HistorialHerramienta/';
+const operadorUrl = baseurl + 'Operador/';
 
 @Injectable()
 export class OperativoService {      
@@ -108,7 +110,6 @@ export class OperativoService {
 
     updateHistorialHerramienta({data}:any){
       const hist: HistorialHerramienta = data
-      debugger;
       return this.http.put<response>(`${historialHerramientaUrl}Update`, hist);
     }
 
@@ -149,4 +150,42 @@ export class OperativoService {
       };
       return this.http.post<response>(`${historialHerramientaUrl}Add`, hist);
     }
+
+    //Operador
+    getOperadores(){
+      return this.http.get<Operador[]>(`${operadorUrl}Get`);
+    }
+
+    updateOperador({data}:any){
+      const opr: HistorialHerramienta = data
+      return this.http.put<response>(`${operadorUrl}Update`, opr);
+    }
+
+    deleteOperador({key}:any){
+      const id:number = key;
+      return this.http.delete<response>(`${operadorUrl}Delete/${id}`);
+    }
+
+    newOperador({data}:any){
+      const opr: Operador = {
+        Id: 0,
+        Nombre: data.nombre ? data.nombre : '',
+        Apellido: data.apellido ? data.apellido :  '',
+        Edad: data.edad ? data.edad: 0,
+        Direccion: data.direccion ? data.direccion :  '',
+        NumeroCelular: data.numeroCelular ? data.numeroCelular.toString() :  '',
+        NSS: data.nss ? data.nss: 0,
+        CursosAbordaje: data.cursosAbordaje ? data.cursosAbordaje :  '',
+        VigenciaCursosAbordaje: new Date(),
+        CursosSSPA: data.cursosSSPA ? data.cursosSSPA :  '',
+        VigenciaCursosSSPA: new Date(),
+        CursosTecnicos: data.cursosTecnicos ? data.cursosTecnicos :  '',
+        VigenciaCursosTecnicos: new Date(),
+        CVSAMMEN: data.cvsammen ? data.cvsammen :  '',
+        ExamenesMedicos: data.examenesMedicos ? data.examenesMedicos :  '',
+        CursosOExperiencia: data.cursosOExperiencia ? data.cursosOExperiencia :  '',
+      };
+      return this.http.post<response>(`${operadorUrl}New`, opr);
+    }
+
 }

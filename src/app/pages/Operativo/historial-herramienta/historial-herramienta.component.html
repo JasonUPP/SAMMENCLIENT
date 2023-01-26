@@ -55,10 +55,18 @@
 
       <dxo-form>
         <dxi-item itemType="group" [colCount]="3" [colSpan]="2">            
-            <dxi-item dataField="numero" editorType="dxNumberBox"></dxi-item>
-            <dxi-item dataField="fecha" editorType="dxDateBox"></dxi-item>
-            <dxi-item dataField="pozo"></dxi-item>
-            <dxi-item dataField="estructura"></dxi-item>
+            <dxi-item dataField="numero" editorType="dxNumberBox">
+              <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="fecha" editorType="dxDateBox">
+              <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="pozo">
+              <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="estructura">
+              <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
+            </dxi-item>
             <dxi-item dataField="tipoOperacion">
                 <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
             </dxi-item>
@@ -68,7 +76,9 @@
             <dxi-item dataField="idOperador">
                 <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
             </dxi-item>
-            <dxi-item dataField="profundidadMax" editorType="dxNumberBox"></dxi-item>
+            <dxi-item dataField="profundidadMax" editorType="dxNumberBox">
+              <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
+            </dxi-item>
             <dxi-item dataField="od" editorType="dxNumberBox"></dxi-item>
             <dxi-item dataField="maxWHP" editorType="dxNumberBox"></dxi-item>
             <dxi-item dataField="temperaturaMaxima" editorType="dxNumberBox"></dxi-item>
@@ -86,7 +96,9 @@
             <dxi-item dataField="notas"></dxi-item>
             <dxi-item dataField="marca"></dxi-item>
             <dxi-item dataField="modelo"></dxi-item>
-            <dxi-item dataField="numeroSerie"></dxi-item>            
+            <dxi-item dataField="numeroSerie">
+              <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
+            </dxi-item>            
         </dxi-item>
       </dxo-form>
     </dxo-editing>

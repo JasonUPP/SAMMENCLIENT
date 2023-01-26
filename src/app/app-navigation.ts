@@ -19,6 +19,10 @@ export const navigation = [
       {
         text: 'Historial Herramienta',
         path: 'Operativo/HistorialHerramienta'
+      },
+      {
+        text: 'Operador',
+        path: 'Operativo/Operador'
       }
     ]
   },
