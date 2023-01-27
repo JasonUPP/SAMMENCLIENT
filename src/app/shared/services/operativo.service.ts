@@ -21,11 +21,7 @@ const ubicacionUrl = baseurl + 'Ubicacion/';
 export class OperativoService {      
 
     constructor(private http: HttpClient){}
-
-    getTest(){
-        return this.http.get(`${baseurl}WeatherForecast`);
-    }
-
+    
     //Herramientas
     getHerramientas(){
       return this.http.get<getHerramientasDto>(`${herramientaUrl}GetHerramientas`);
