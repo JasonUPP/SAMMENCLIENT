@@ -1,7 +1,8 @@
-<h2 class="content-block">Operador</h2>
+<h2 class="content-block">Ubicación</h2>
+
 
 <dx-data-grid 
-    id="gridOperador"
+    id="gridUbicacion"
     class="dx-card wide-card"
     [dataSource]="dataSource"
     [showBorders]="true"
@@ -36,7 +37,7 @@
     [allowDeleting]="true">
 
       <dxo-popup
-      title="Editar Operador"
+      title="Editar Ubicacion"
       [showTitle]="true"
       [width]="1000"
       [height]="550">
@@ -49,8 +50,8 @@
       addRow="Agregar nuevo elemento"
       editRow="Editar"
       deleteRow="Eliminar"
-      confirmDeleteTitle="Eliminar Operador"
-      confirmDeleteMessage="¿Estas seguro que quieres eliminar este Operador?">
+      confirmDeleteTitle="Eliminar Ubicacion"
+      confirmDeleteMessage="¿Estas seguro que quieres eliminar esta Ubicacion?">
       </dxo-texts>
 
       <dxo-form>
@@ -58,34 +59,14 @@
             <dxi-item dataField="nombre">
               <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
             </dxi-item>
-            <dxi-item dataField="apellido">
+            <dxi-item dataField="abreviatura">
               <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
             </dxi-item>
-            <dxi-item dataField="edad" editorType="dxNumberBox">
-              <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
-            </dxi-item>
-            <dxi-item dataField="direccion">
-              <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
-            </dxi-item>
+            <dxi-item dataField="direccion"></dxi-item>
             <dxi-item dataField="numeroCelular" editorType="dxNumberBox">
-                <dxi-validation-rule type="pattern" pattern="^[0-9]{10}$" message="Deben ser solo 10 numeros">                    
-                </dxi-validation-rule>
-                <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
+                <dxi-validation-rule type="pattern" pattern="^[0-9]{10}$" message="Deben ser solo 10 numeros"></dxi-validation-rule>
             </dxi-item>
-            <dxi-item dataField="nss" editorType="dxNumberBox">
-                <dxi-validation-rule type="pattern" pattern="^[0-9]{9}$" message="Deben ser solo 9 numeros">                    
-                </dxi-validation-rule>
-                <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
-            </dxi-item>
-            <dxi-item dataField="cursosAbordaje"></dxi-item>
-            <dxi-item dataField="vigenciaCursosAbordaje" editorType="dxDateBox"></dxi-item>
-            <dxi-item dataField="cursosSSPA"></dxi-item>
-            <dxi-item dataField="vigenciaCursosSSPA" editorType="dxDateBox"></dxi-item>
-            <dxi-item dataField="cursosTecnicos"></dxi-item>
-            <dxi-item dataField="vigenciaCursosTecnicos" editorType="dxDateBox"></dxi-item>
-            <dxi-item dataField="cvsammen"></dxi-item>
-            <dxi-item dataField="examenesMedicos"></dxi-item>
-            <dxi-item dataField="cursosOExperiencia"></dxi-item>
+            <dxi-item dataField="cantidadUTF" editorType="dxNumberBox"></dxi-item>
         </dxi-item>
       </dxo-form>
     </dxo-editing>
@@ -93,21 +74,10 @@
     <!-- Row zone -->
     <dxi-column dataField="id" [visible]="false" [showInColumnChooser]="false"></dxi-column>
     <dxi-column dataField="nombre"></dxi-column>
-    <dxi-column dataField="apellido"></dxi-column>
-    <dxi-column dataField="edad"></dxi-column>
+    <dxi-column dataField="abreviatura"></dxi-column>
     <dxi-column dataField="direccion"></dxi-column>
     <dxi-column dataField="numeroCelular"></dxi-column>
-    <dxi-column dataField="nss" caption="NSS"></dxi-column>
-    <dxi-column dataField="cursosAbordaje"></dxi-column>
-    <dxi-column dataField="vigenciaCursosAbordaje" dataType="date"></dxi-column>
-    <dxi-column dataField="cursosSSPA"></dxi-column>
-    <dxi-column dataField="vigenciaCursosSSPA" dataType="date"></dxi-column>
-    <dxi-column dataField="cursosTecnicos"></dxi-column>
-    <dxi-column dataField="vigenciaCursosTecnicos" dataType="date"></dxi-column>
-    <dxi-column dataField="cvsammen"></dxi-column>
-    <dxi-column dataField="examenesMedicos"></dxi-column>
-    <dxi-column dataField="cursosOExperiencia"></dxi-column>
-
+    <dxi-column dataField="cantidadUTF"></dxi-column>
 
     <!-- Pagin, Filter, Search zone --> 
     <dxo-filter-row

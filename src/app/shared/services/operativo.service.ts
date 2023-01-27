@@ -6,6 +6,7 @@ import { Herramienta } from "src/app/Models/Operativo/HerramientaModel";
 import { HistorialHerramienta } from "src/app/Models/Operativo/historialHerramientaModel";
 import { MedidaHerramienta } from "src/app/Models/Operativo/medidaHerramientaModel";
 import { Operador } from "src/app/Models/Operativo/operadorModel";
+import { Ubicacion } from "src/app/Models/Operativo/ubicacionModel";
 import { response } from "src/app/Models/response";
 import { environment } from "src/environments/environment";
 
@@ -14,6 +15,7 @@ const herramientaUrl = baseurl + 'Herramienta/';
 const medidaHerramientaUrl = baseurl + 'MedidaHerramienta/';
 const historialHerramientaUrl = baseurl + 'HistorialHerramienta/';
 const operadorUrl = baseurl + 'Operador/';
+const ubicacionUrl = baseurl + 'Ubicacion/';
 
 @Injectable()
 export class OperativoService {      
@@ -157,7 +159,8 @@ export class OperativoService {
     }
 
     updateOperador({data}:any){
-      const opr: HistorialHerramienta = data
+      data.numeroCelular = data.numeroCelular ? data.numeroCelular.toString() : '';
+      const opr: HistorialHerramienta = data;
       return this.http.put<response>(`${operadorUrl}Update`, opr);
     }
 
@@ -188,4 +191,31 @@ export class OperativoService {
       return this.http.post<response>(`${operadorUrl}New`, opr);
     }
 
+    //Ubicacion
+    getUbicaciones(){
+      return this.http.get<Ubicacion[]>(`${ubicacionUrl}Get`)
+    }
+
+    updateUbicacion({data}:any){
+      data.numeroCelular = data.numeroCelular ? data.numeroCelular.toString() : '';      
+      const ubicacion: Ubicacion = data;
+      return this.http.put<response>(`${ubicacionUrl}Update`, ubicacion);
+    }
+
+    deleteUbicacion({key}:any){
+      const id:number = key;
+      return this.http.delete<response>(`${ubicacionUrl}Delete/${id}`);
+    }
+
+    newUbicacion({data}:any){
+      const ubi: Ubicacion = {
+        Id : 0,
+        Nombre : data.nombre,
+        Abreviatura : data.abreviatura,
+        Direccion : data.direccion ? data.direccion : '',
+        NumeroCelular : data.numeroCelular ? data.numeroCelular.toString() : '',
+        CantidadUTF : data.cantidadUTF ? data.cantidadUTF : 0,
+      }
+      return this.http.post<response>(`${ubicacionUrl}New`, ubi);
+    }
 }

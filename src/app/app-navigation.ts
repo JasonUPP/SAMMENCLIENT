@@ -23,6 +23,10 @@ export const navigation = [
       {
         text: 'Operador',
         path: 'Operativo/Operador'
+      },
+      {
+        text: 'Ubicación',
+        path: 'Operativo/Ubicacion'
       }
     ]
   },

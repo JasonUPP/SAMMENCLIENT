@@ -10,6 +10,7 @@ import { HerramientaComponent } from './pages/Operativo/herramienta/herramienta.
 import { MedidaHerramientaComponent } from './pages/Operativo/medida-herramienta/medida-herramienta.component';
 import { HistorialHerramientaComponent } from './pages/Operativo/historial-herramienta/historial-herramienta.component';
 import { OperadorComponent } from './pages/Operativo/operador/operador.component';
+import { UbicacionComponent } from './pages/Operativo/ubicacion/ubicacion.component';
 
 const routes: Routes = [
   {
@@ -68,6 +69,11 @@ const routes: Routes = [
     canActivate: [AuthGuardService]
   },
   {
+    path: 'Operativo/Ubicacion',
+    component: UbicacionComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
     path: '**',
     redirectTo: 'home'
   },
@@ -85,7 +91,8 @@ const routes: Routes = [
     HerramientaComponent,
     MedidaHerramientaComponent,
     HistorialHerramientaComponent,
-    OperadorComponent
+    OperadorComponent,
+    UbicacionComponent
   ]
 })
 export class AppRoutingModule { }
