@@ -4,7 +4,7 @@ import { LoginFormComponent, ResetPasswordFormComponent, CreateAccountFormCompon
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
-import { DxDataGridModule, DxFormModule } from 'devextreme-angular';
+import { DxButtonModule, DxDataGridModule, DxFormModule } from 'devextreme-angular';
 import { AuthGuardService } from './security/auth.guard';
 import { HerramientaComponent } from './pages/Operativo/herramienta/herramienta.component';
 import { MedidaHerramientaComponent } from './pages/Operativo/medida-herramienta/medida-herramienta.component';
@@ -81,7 +81,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true }), DxDataGridModule, DxFormModule],
+  imports: [RouterModule.forRoot(routes, { useHash: true }), DxDataGridModule, DxFormModule, DxButtonModule],
   providers: [AuthGuardService],
   exports: [RouterModule],
   declarations: [

@@ -18,6 +18,7 @@ export class MedidaHerramientaComponent implements OnInit {
   requiredMsj:string = 'Este campo es requerido';
   estatusList: customJson[];
   tipoMedidaHerramienta: customJson[];
+  flag: boolean = true;
 
 
   constructor(private operativoService: OperativoService){
@@ -79,6 +80,12 @@ export class MedidaHerramientaComponent implements OnInit {
       },
       complete: () => this.loading = false
     });
+  }
+
+  click(e:any){
+    debugger;
+    this.flag = !this.flag;
+
   }
 
 }
