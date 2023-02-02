@@ -5,4 +5,5 @@ export interface Ubicacion {
     Direccion : string;
     NumeroCelular : string;
     CantidadUTF : number;
+    Caja: string;
 }

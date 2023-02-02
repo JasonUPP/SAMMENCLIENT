@@ -211,6 +211,7 @@ export class OperativoService {
         Direccion : data.direccion ? data.direccion : '',
         NumeroCelular : data.numeroCelular ? data.numeroCelular.toString() : '',
         CantidadUTF : data.cantidadUTF ? data.cantidadUTF : 0,
+        Caja : data.caja ? data.caja : '',
       }
       return this.http.post<response>(`${ubicacionUrl}New`, ubi);
     }
