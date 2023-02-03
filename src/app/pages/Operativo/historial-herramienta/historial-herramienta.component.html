@@ -16,6 +16,7 @@
     (onRowUpdated)="updateHistorialHerramienta($event)"    
     (onRowInserting)="addHistorialHerramienta($event)"
     (onRowRemoving)="deleteHistorialHerramienta($event)"
+    (onExporting)="onExporting($event)"
     >
 
     <dxo-load-panel
@@ -148,6 +149,12 @@
       [applyFilter]="true">
     </dxo-filter-row>
 
+    <dxo-export 
+      [enabled]="true"
+      [formats]="['pdf']"
+      [allowExportSelectedData]="false"
+    >      
+    </dxo-export>
     <dxo-paging [pageSize]="5"></dxo-paging>
     <dxo-pager
       [showPageSizeSelector]="true"

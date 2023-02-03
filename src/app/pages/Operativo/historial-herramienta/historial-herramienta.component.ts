@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { exportDataGrid } from 'devextreme/pdf_exporter';
 import notify from 'devextreme/ui/notify';
+import jsPDF from 'jspdf';
 import { customJson } from 'src/app/Models/customJson';
 import { getHistorialHerramientaDto } from 'src/app/Models/Dtos/Operativo/getHistorialHerramientaDto';
 import { HistorialHerramienta } from 'src/app/Models/Operativo/historialHerramientaModel';
@@ -83,6 +85,17 @@ export class HistorialHerramientaComponent implements OnInit {
         notify(typeof(e.error) == 'object' ? e.message : e.error , 'error', 2000);
       },
       complete: () => this.loading = false
+    });
+  }
+
+  onExporting(e: any) {
+    const doc = new jsPDF();
+    exportDataGrid({
+      jsPDFDocument: doc,
+      component: e.component,
+      indent: 5,
+    }).then(() => {
+      doc.save('Historial.pdf');
     });
   }
 

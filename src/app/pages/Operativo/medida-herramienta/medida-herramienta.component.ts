@@ -83,9 +83,7 @@ export class MedidaHerramientaComponent implements OnInit {
   }
 
   click(e:any){
-    debugger;
     this.flag = !this.flag;
-
   }
 
 }
