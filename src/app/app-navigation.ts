@@ -25,6 +25,10 @@ export const navigation = [
         path: 'Operativo/Operador'
       },
       {
+        text: 'Cursos',
+        path: 'Operativo/Cursos'
+      },
+      {
         text: 'Ubicación',
         path: 'Operativo/Ubicacion'
       }

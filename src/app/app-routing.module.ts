@@ -4,14 +4,14 @@ import { LoginFormComponent, ResetPasswordFormComponent, CreateAccountFormCompon
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
-import { DxButtonModule, DxDataGridModule, DxFormModule } from 'devextreme-angular';
+import { DxButtonModule, DxDataGridModule, DxDropDownButtonModule, DxFormModule } from 'devextreme-angular';
 import { AuthGuardService } from './security/auth.guard';
 import { HerramientaComponent } from './pages/Operativo/herramienta/herramienta.component';
 import { MedidaHerramientaComponent } from './pages/Operativo/medida-herramienta/medida-herramienta.component';
 import { HistorialHerramientaComponent } from './pages/Operativo/historial-herramienta/historial-herramienta.component';
 import { OperadorComponent } from './pages/Operativo/operador/operador.component';
 import { UbicacionComponent } from './pages/Operativo/ubicacion/ubicacion.component';
-
+import { CursosComponent } from './pages/Operativo/cursos/cursos.component';
 const routes: Routes = [
   {
     path: 'tasks',
@@ -74,6 +74,11 @@ const routes: Routes = [
     canActivate: [AuthGuardService]
   },
   {
+    path: 'Operativo/Cursos',
+    component: CursosComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
     path: '**',
     redirectTo: 'home'
   },
@@ -81,7 +86,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true }), DxDataGridModule, DxFormModule, DxButtonModule],
+  imports: [RouterModule.forRoot(routes, { useHash: true }), DxDataGridModule, DxFormModule, DxButtonModule, DxDropDownButtonModule],
   providers: [AuthGuardService],
   exports: [RouterModule],
   declarations: [
@@ -92,6 +97,7 @@ const routes: Routes = [
     MedidaHerramientaComponent,
     HistorialHerramientaComponent,
     OperadorComponent,
+    CursosComponent,
     UbicacionComponent
   ]
 })

@@ -6,8 +6,6 @@ export interface Operador {
     Direccion: string;
     NumeroCelular: string;
     NSS: number;
-    CursosAbordaje: string;
-    VigenciaCursosAbordaje: Date;
     CursosSSPA: string;
     VigenciaCursosSSPA: Date;
     CursosTecnicos: string;

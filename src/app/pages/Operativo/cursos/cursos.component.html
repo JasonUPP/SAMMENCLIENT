@@ -1,0 +1,50 @@
+<dx-drop-down-button
+    [dataSource]="dropDownData"
+    valueExpr="id"
+    displayExpr="nombre"
+    [text]="dropDownText"        
+    stylingMode="text"
+    width="400"
+    (onItemClick)="onItemClick($event)"
+    >            
+</dx-drop-down-button>
+
+<dx-data-grid
+    id="gridCursos"
+    [dataSource]="gridData"
+    [showBorders]="true"
+    keyExpr="id"
+    [columnAutoWidth]="true"
+    [rowAlternationEnabled]="true">
+
+    <dxo-editing
+        mode="batch"
+        [allowUpdating]="true"
+        [allowAdding]="false"
+        [allowDeleting]="false"
+        [selectTextOnEditStart]="true"
+        startEditAction="click"
+    >
+    </dxo-editing>
+
+    <!-- <dxi-column dataField="id" [visible]="false"></dxi-column> -->
+    <dxi-column dataField="item" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="nombre" [allowEditing]="false" ></dxi-column>
+    <dxi-column dataField="requerido" [allowEditing]="false">
+        <dxo-lookup [dataSource]="cursoRequerido" displayExpr="nombre" valueExpr="id">
+        </dxo-lookup>
+    </dxi-column>
+    <dxi-column dataField="vigencia" dataType="date">
+        <dxi-validation-rule type="required" [message]=requiredMsj>
+        </dxi-validation-rule>
+    </dxi-column>
+    <dxi-column dataField="Estatus" [allowEditing]="false">
+        <dxo-lookup [dataSource]="estatusCurso" displayExpr="nombre" valueExpr="id">
+        </dxo-lookup>
+    </dxi-column>
+
+    <dxo-paging [enabled]="false"></dxo-paging>
+    <dxo-load-panel [enabled]="true"></dxo-load-panel>
+    <dxo-sorting mode="none"></dxo-sorting>
+
+</dx-data-grid>

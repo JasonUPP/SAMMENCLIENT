@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { cursosDto } from "src/app/Models/Dtos/Operativo/cursosDto";
 import { getHerramientasDto } from "src/app/Models/Dtos/Operativo/getHerramientasDto";
 import { getHistorialHerramientaDto } from "src/app/Models/Dtos/Operativo/getHistorialHerramientaDto";
 import { Herramienta } from "src/app/Models/Operativo/HerramientaModel";
@@ -16,6 +17,7 @@ const medidaHerramientaUrl = baseurl + 'MedidaHerramienta/';
 const historialHerramientaUrl = baseurl + 'HistorialHerramienta/';
 const operadorUrl = baseurl + 'Operador/';
 const ubicacionUrl = baseurl + 'Ubicacion/';
+const cursosUrl = baseurl + 'Cursos/';
 
 @Injectable()
 export class OperativoService {      
@@ -174,8 +176,6 @@ export class OperativoService {
         Direccion: data.direccion ? data.direccion :  '',
         NumeroCelular: data.numeroCelular ? data.numeroCelular.toString() :  '',
         NSS: data.nss ? data.nss: 0,
-        CursosAbordaje: data.cursosAbordaje ? data.cursosAbordaje :  '',
-        VigenciaCursosAbordaje: new Date(),
         CursosSSPA: data.cursosSSPA ? data.cursosSSPA :  '',
         VigenciaCursosSSPA: new Date(),
         CursosTecnicos: data.cursosTecnicos ? data.cursosTecnicos :  '',
@@ -214,5 +214,17 @@ export class OperativoService {
         Caja : data.caja ? data.caja : '',
       }
       return this.http.post<response>(`${ubicacionUrl}New`, ubi);
+    }
+
+    getCursos(){
+      return this.http.get(`${cursosUrl}Get`);
+    }
+
+    getRelacion(){
+      return this.http.get(`${cursosUrl}GetRelacion`);
+    }
+
+    getCursosPorOperador(id:number){
+      return this.http.get<cursosDto[]>(`${cursosUrl}GetCursosPorOperador/${id}`)
     }
 }
