@@ -15,14 +15,16 @@
     [showBorders]="true"
     keyExpr="id"
     [columnAutoWidth]="true"
-    [rowAlternationEnabled]="true">
+    [rowAlternationEnabled]="true"
+    (onSaving)="saving($event)"
+    (onOptionChanged)="onOptionChanged($event)"
+    >
 
     <dxo-editing
         mode="batch"
         [allowUpdating]="true"
         [allowAdding]="false"
         [allowDeleting]="false"
-        [selectTextOnEditStart]="true"
         startEditAction="click"
     >
     </dxo-editing>
@@ -34,10 +36,7 @@
         <dxo-lookup [dataSource]="cursoRequerido" displayExpr="nombre" valueExpr="id">
         </dxo-lookup>
     </dxi-column>
-    <dxi-column dataField="vigencia" dataType="date">
-        <dxi-validation-rule type="required" [message]=requiredMsj>
-        </dxi-validation-rule>
-    </dxi-column>
+    <dxi-column dataField="vigencia" dataType="date" [customizeText]="customText"></dxi-column>
     <dxi-column dataField="Estatus" [allowEditing]="false">
         <dxo-lookup [dataSource]="estatusCurso" displayExpr="nombre" valueExpr="id">
         </dxo-lookup>

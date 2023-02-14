@@ -1,7 +1,7 @@
 export interface cursosDto {
-    Item: number;
+    item: number;
     Nombre: string;
-    Requerido: number;
-    Vigencia: Date;
+    requerido: number;
+    vigencia: Date;
     Estatus: number;
 }
