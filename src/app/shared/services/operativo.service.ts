@@ -227,4 +227,20 @@ export class OperativoService {
     getCursosPorOperador(id:number){
       return this.http.get<cursosDto[]>(`${cursosUrl}GetCursosPorOperador/${id}`)
     }
+
+    newCursosByOperador(idOperador:number, CursosDtos:cursosDto[]){
+      const body = {
+        idOperador,
+        CursosDtos
+      };
+      return this.http.post<response>(`${cursosUrl}NewCursosPorOperador`, body);
+    }
+
+    updateCursosOperador(idOperador:number, CursosDtos:cursosDto[]){
+      const body = {
+        idOperador,
+        CursosDtos
+      };
+      return this.http.put<response>(`${cursosUrl}UpdateCursosPorOperador`, body);
+    }
 }

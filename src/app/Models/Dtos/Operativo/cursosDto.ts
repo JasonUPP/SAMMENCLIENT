@@ -3,5 +3,5 @@ export interface cursosDto {
     Nombre: string;
     requerido: number;
     vigencia: Date;
-    Estatus: number;
+    estatus: number;
 }

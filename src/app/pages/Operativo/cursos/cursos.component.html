@@ -13,7 +13,7 @@
     id="gridCursos"
     [dataSource]="gridData"
     [showBorders]="true"
-    keyExpr="id"
+    keyExpr="item"
     [columnAutoWidth]="true"
     [rowAlternationEnabled]="true"
     (onSaving)="saving($event)"
@@ -32,12 +32,12 @@
     <!-- <dxi-column dataField="id" [visible]="false"></dxi-column> -->
     <dxi-column dataField="item" [allowEditing]="false"></dxi-column>
     <dxi-column dataField="nombre" [allowEditing]="false" ></dxi-column>
+    <dxi-column dataField="vigencia" dataType="date" [customizeText]="customText"></dxi-column>
     <dxi-column dataField="requerido" [allowEditing]="false">
         <dxo-lookup [dataSource]="cursoRequerido" displayExpr="nombre" valueExpr="id">
         </dxo-lookup>
     </dxi-column>
-    <dxi-column dataField="vigencia" dataType="date" [customizeText]="customText"></dxi-column>
-    <dxi-column dataField="Estatus" [allowEditing]="false">
+    <dxi-column dataField="estatus" [allowEditing]="false">
         <dxo-lookup [dataSource]="estatusCurso" displayExpr="nombre" valueExpr="id">
         </dxo-lookup>
     </dxi-column>
