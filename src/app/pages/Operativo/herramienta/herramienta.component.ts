@@ -34,6 +34,9 @@ export class HerramientaComponent implements OnInit {
     this.operativoService.getHerramientas()
     .subscribe({
       next: (data:getHerramientasDto) => {
+        data.herramientas.forEach(herramienta => {
+          herramienta.dias = this.calculateDias(herramienta.fechaVencimiento);
+        });
         this.dataSource = data.herramientas;
         this.ubicaciones = data.ubicaciones;
       },
@@ -83,6 +86,15 @@ export class HerramientaComponent implements OnInit {
       },
       complete: () => this.loading = false
     }); 
+  }
+
+  calculateDias(vigencia: Date):number {
+    const today = new Date();
+    if(typeof(vigencia) == 'string')
+      vigencia = new Date(vigencia);    
+    const difference_In_Time = vigencia.getTime() - today.getTime();
+    const difference_In_Days:number = Math.round(difference_In_Time / (1000 * 3600 * 24));
+    return difference_In_Days;
   }
 
 }

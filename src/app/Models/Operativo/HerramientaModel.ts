@@ -4,8 +4,8 @@ export interface Herramienta {
     Descripcion: string;
     NumeroSerie: string;
     NumeroInforme: string;
-    FechaVencimiento: Date;
-    Dias: number;
+    fechaVencimiento: Date;
+    dias: number;
     Estatus: number;
     FechaEntrega: Date;
     DiasCampo: number;
