@@ -13,4 +13,5 @@ export interface Operador {
     CVSAMMEN: string;
     ExamenesMedicos: string;
     CursosOExperiencia: string;
+    Estatus:number;
 }

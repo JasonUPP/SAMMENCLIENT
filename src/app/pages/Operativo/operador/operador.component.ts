@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import notify from 'devextreme/ui/notify';
+import { customJson } from 'src/app/Models/customJson';
 import { Operador } from 'src/app/Models/Operativo/operadorModel';
 import { response } from 'src/app/Models/response';
 import { OperativoService } from 'src/app/shared/services/operativo.service';
+import { EstatusOperador } from 'src/assets/EstatusOperador';
 
 @Component({
   selector: 'app-operador',
@@ -13,6 +15,8 @@ export class OperadorComponent implements OnInit {
   loading: boolean = true;
   dataSource: Operador[] = [];
   requiredMsj:string = 'Este campo es requerido';
+  estatusOperador:customJson[] = EstatusOperador;
+
 
   constructor(private operativoService: OperativoService){}
 

@@ -29,6 +29,10 @@ export class CursosComponent implements OnInit {
 
   constructor(private operativoService: OperativoService){
     this.get();
+    // hacer que al obtener los cursos se actualize el estatus del operador
+    // checar si coincide el estatus actual con el que deberia ser
+    // al actualizar los cursos, tambien actualizar el estatus del operador
+    // tambien el añadir todos los cursos de un jale
   }
 
   ngOnInit(): void {
@@ -44,7 +48,7 @@ export class CursosComponent implements OnInit {
         this.dropDownData = response[0];
         this.auxGridData = response[1];        
         this.auxGridData.forEach(curso => {          
-          if(curso.requerido == 1) this.cursosRequeridosCount ++;          
+          if(curso.requerido == 1) this.cursosRequeridosCount ++;   
         });
       },
       error: (e) => {
@@ -75,6 +79,13 @@ export class CursosComponent implements OnInit {
         }
         else{
           this.isFirstTime = false;
+          res.forEach(item => {
+            item.estatus = this.checkVigencia(item.vigencia);
+          });          
+          const anonymous = {
+            changes: res
+          };
+          this.updateCursos(anonymous);
           this.gridData = res;        
         }
       },
@@ -85,44 +96,11 @@ export class CursosComponent implements OnInit {
     });
   }
 
-  saving(e:any){
-    //create 2 methods to avoid the code here
-    if(this.isFirstTime){
-      let requeridosModificados:number = 0;
-  
-      this.gridData.forEach(curso => {
-        if(curso.estatus != 0 && curso.requerido == 1)
-          requeridosModificados ++;
-      });
-  
-      if(requeridosModificados < this.cursosRequeridosCount){
-        notify(`Se deben establecer las vigencias para todos los cursos Requeridos. Restantes: ${this.cursosRequeridosCount - requeridosModificados}`, 'warning', 3000);      
-        return;
-      };
-  
-      this.operativoService.newCursosByOperador(this.idOperadorSelected, this.gridData).
-      subscribe({
-        next: (e:response) => {
-          notify(e.message, 'success', 2000);        
-        },
-        error: (e:any) => {
-          notify(typeof(e.error) == 'object' ? e.message : e.error , 'error', 2000);        
-        },
-        complete: () => this.loading = false
-      });
-    }
-    else{//Means the user is updating  
-      const {changes} = e;      
-      console.log(this.gridData);
-      let cursosModificados:cursosDto[] = [];      
-      changes.forEach((change:any) => {
-        const curso = this.gridData.filter(f => f.item == change.key);
-        cursosModificados.push(curso[0]);
-      });
-
-      this.operativoService.updateCursosOperador(this.idOperadorSelected, cursosModificados);
-      //finish the subscribe
-    }
+  onSaving(e:any){
+    if(this.isFirstTime)
+      this.newCursos();
+    else  //Means the user is updating  
+      this.updateCursos(e);    
 
   }
 
@@ -146,7 +124,7 @@ export class CursosComponent implements OnInit {
     if(typeof(vigencia) == 'string')
       vigencia = new Date(vigencia);    
     const difference_In_Time = vigencia.getTime() - today.getTime();
-    const difference_In_Days:number = Math.round(difference_In_Time / (1000 * 3600 * 24));
+    const difference_In_Days:number = Math.round(difference_In_Time / (1000 * 3600 * 24));    
     if(difference_In_Days >= 0 && difference_In_Days <= 30)
       return 2;
     
@@ -160,6 +138,80 @@ export class CursosComponent implements OnInit {
     const value:string = e.valueText;
     const parts = value.split('/');
     return `${parts[1]}/${parts[0]}/${parts[2]}`;    
+  }
+
+  newCursos():void {
+    let requeridosModificados:number = 0;
+  
+    this.gridData.forEach(curso => {
+      if(curso.estatus != 0 && curso.requerido == 1)
+        requeridosModificados ++;
+    });
+
+    if(requeridosModificados < this.cursosRequeridosCount){
+      notify(`Se deben establecer las vigencias para todos los cursos Requeridos. Restantes: ${this.cursosRequeridosCount - requeridosModificados}`, 'warning', 3000);      
+      return;
+    };
+
+    this.operativoService.newCursosByOperador(this.idOperadorSelected, this.gridData).
+    subscribe({
+      next: (e:response) => {
+        notify(e.message, 'success', 2000);        
+      },
+      error: (e:any) => {
+        notify(typeof(e.error) == 'object' ? e.message : e.error , 'error', 2000);        
+      },
+      complete: () => this.loading = false
+    });
+  }
+
+  updateCursos(e:any):void {
+    const {changes} = e;
+    let cursosModificados:cursosDto[] = [];
+    if(this.gridData.length == 0)//Is updating when operador is selected
+      cursosModificados = changes;
+    else{
+      changes.forEach((change:any) => {  
+        let curso = this.gridData.filter(f => f.item == change.key);
+        cursosModificados.push(curso[0]);
+      });
+    }    
+
+    this.operativoService.updateCursosOperador(this.idOperadorSelected, cursosModificados).
+    subscribe({
+      next: (e:response) => {
+        notify(e.message, 'success', 2000);        
+      },
+      error: (e:any) => {
+        notify(typeof(e.error) == 'object' ? e.message : e.error , 'error', 2000);        
+      },
+      complete: () => this.loading = false
+    });
+  }
+
+  onCellPrepared(e:any){
+    if(e.rowType == 'data'){
+      if(e.column.dataField == 'estatus'){
+        switch(e.values[4]){
+          case 0:
+            break;
+          case 1:            
+            e.cellElement.style.backgroundColor = '#8BC34A';
+            e.cellElement.style.color = 'white';
+            break;
+          case 2:            
+            e.cellElement.style.backgroundColor = '#FFD455';
+            e.cellElement.style.color = 'white';
+            break;
+          case 3:
+              e.cellElement.style.backgroundColor = '#f24336';
+              e.cellElement.style.color = 'white';
+            break;
+          default:
+            break;
+        };
+      }
+    }
   }
 
 }

@@ -183,6 +183,7 @@ export class OperativoService {
         CVSAMMEN: data.cvsammen ? data.cvsammen :  '',
         ExamenesMedicos: data.examenesMedicos ? data.examenesMedicos :  '',
         CursosOExperiencia: data.cursosOExperiencia ? data.cursosOExperiencia :  '',
+        Estatus: data.estatus,
       };
       return this.http.post<response>(`${operadorUrl}New`, opr);
     }

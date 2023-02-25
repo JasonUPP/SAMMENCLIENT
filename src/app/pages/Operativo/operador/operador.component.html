@@ -96,6 +96,10 @@
     <dxi-column dataField="direccion"></dxi-column>
     <dxi-column dataField="numeroCelular"></dxi-column>
     <dxi-column dataField="nss" caption="NSS"></dxi-column>
+    <dxi-column dataField="estatus" allowEditing="false">
+      <dxo-lookup [dataSource]="estatusOperador" displayExpr="nombre" valueExpr="id">
+      </dxo-lookup>
+    </dxi-column>
     <dxi-column dataField="cursosSSPA"></dxi-column>
     <dxi-column dataField="vigenciaCursosSSPA" dataType="date"></dxi-column>
     <dxi-column dataField="cursosTecnicos"></dxi-column>

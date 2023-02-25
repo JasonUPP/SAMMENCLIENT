@@ -16,7 +16,8 @@
     keyExpr="item"
     [columnAutoWidth]="true"
     [rowAlternationEnabled]="true"
-    (onSaving)="saving($event)"
+    (onCellPrepared)="onCellPrepared($event)"
+    (onSaving)="onSaving($event)"
     (onOptionChanged)="onOptionChanged($event)"
     >
 
@@ -37,7 +38,7 @@
         <dxo-lookup [dataSource]="cursoRequerido" displayExpr="nombre" valueExpr="id">
         </dxo-lookup>
     </dxi-column>
-    <dxi-column dataField="estatus" [allowEditing]="false">
+    <dxi-column dataField="estatus" [allowEditing]="false"  >
         <dxo-lookup [dataSource]="estatusCurso" displayExpr="nombre" valueExpr="id">
         </dxo-lookup>
     </dxi-column>
