@@ -26,6 +26,7 @@ export class CursosComponent implements OnInit {
   cursosRequeridosCount:number = 0;
   idOperadorSelected:number = 0;
   isFirstTime:boolean = false;
+  cursoVencido:boolean = false;
 
   constructor(private operativoService: OperativoService){
     this.get();
@@ -45,7 +46,7 @@ export class CursosComponent implements OnInit {
     forkJoin([operadores$, cursos$, relaciones$]).
     subscribe({
       next: (response:any) => {
-        this.dropDownData = response[0];
+        this.dropDownData = response[0];//Operadores
         this.auxGridData = response[1];        
         this.auxGridData.forEach(curso => {          
           if(curso.requerido == 1) this.cursosRequeridosCount ++;   
@@ -59,7 +60,6 @@ export class CursosComponent implements OnInit {
   }
 
   onItemClick(e:any){
-    // console.log(e);
     const {itemData} = e;
     const {id, nombre} = itemData;
     this.idOperadorSelected = id;
@@ -78,14 +78,10 @@ export class CursosComponent implements OnInit {
           this.gridData = aux;
         }
         else{
-          this.isFirstTime = false;
-          res.forEach(item => {
-            item.estatus = this.checkVigencia(item.vigencia);
-          });          
-          const anonymous = {
-            changes: res
-          };
-          this.updateCursos(anonymous);
+          this.isFirstTime = false;          
+          this.updateCursos({changes: res});
+          this.checkCursosVigencia(res);//Modify the cursoVencido value
+          this.checkExpiredCursos();
           this.gridData = res;        
         }
       },
@@ -99,9 +95,8 @@ export class CursosComponent implements OnInit {
   onSaving(e:any){
     if(this.isFirstTime)
       this.newCursos();
-    else  //Means the user is updating  
-      this.updateCursos(e);    
-
+    else  //The user is updating  
+      this.updateCursos(e);
   }
 
   onOptionChanged(e:any){
@@ -148,15 +143,17 @@ export class CursosComponent implements OnInit {
         requeridosModificados ++;
     });
 
+    
     if(requeridosModificados < this.cursosRequeridosCount){
       notify(`Se deben establecer las vigencias para todos los cursos Requeridos. Restantes: ${this.cursosRequeridosCount - requeridosModificados}`, 'warning', 3000);      
       return;
     };
-
+    
     this.operativoService.newCursosByOperador(this.idOperadorSelected, this.gridData).
     subscribe({
       next: (e:response) => {
         notify(e.message, 'success', 2000);        
+        this.updateEstatusOperador(this.idOperadorSelected, 1);
       },
       error: (e:any) => {
         notify(typeof(e.error) == 'object' ? e.message : e.error , 'error', 2000);        
@@ -175,6 +172,11 @@ export class CursosComponent implements OnInit {
         let curso = this.gridData.filter(f => f.item == change.key);
         cursosModificados.push(curso[0]);
       });
+
+      //Updating operador estatus
+      this.checkCursosVigencia(this.gridData);//Modify the cursoVencido value
+      this.checkExpiredCursos();
+
     }    
 
     this.operativoService.updateCursosOperador(this.idOperadorSelected, cursosModificados).
@@ -214,4 +216,33 @@ export class CursosComponent implements OnInit {
     }
   }
 
+  updateEstatusOperador(idOperador: number, estatus: number){
+    this.operativoService.updateEstatusOperador(idOperador, estatus)
+    .subscribe({
+      next: (e:response) => {
+        notify(e.message, 'success', 2000);        
+      },
+      error: (e:any) => {
+        notify(typeof(e.error) == 'object' ? e.message : e.error , 'error', 2000);        
+      },
+      complete: () => this.loading = false
+    })
+  }
+
+
+  checkCursosVigencia(data: cursosDto[]){
+    this.cursoVencido = false;
+    data.forEach(item => {
+      item.estatus = this.checkVigencia(item.vigencia);
+      if(item.estatus == 3) this.cursoVencido = true;
+    });
+  };
+
+  checkExpiredCursos(){
+    const operador = this.dropDownData.filter(f => f.id == this.idOperadorSelected)[0];
+    if(operador.estatus != 2 && this.cursoVencido)
+      this.updateEstatusOperador(this.idOperadorSelected, 2);
+    if(operador.estatus != 1 && !this.cursoVencido)
+      this.updateEstatusOperador(this.idOperadorSelected, 1);    
+  }
 }

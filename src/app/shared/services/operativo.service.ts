@@ -169,7 +169,7 @@ export class OperativoService {
 
     newOperador({data}:any){
       const opr: Operador = {
-        Id: 0,
+        id: 0,
         Nombre: data.nombre ? data.nombre : '',
         Apellido: data.apellido ? data.apellido :  '',
         Edad: data.edad ? data.edad: 0,
@@ -183,9 +183,18 @@ export class OperativoService {
         CVSAMMEN: data.cvsammen ? data.cvsammen :  '',
         ExamenesMedicos: data.examenesMedicos ? data.examenesMedicos :  '',
         CursosOExperiencia: data.cursosOExperiencia ? data.cursosOExperiencia :  '',
-        Estatus: data.estatus,
+        estatus: data.estatus,
       };
       return this.http.post<response>(`${operadorUrl}New`, opr);
+    }
+
+    
+    updateEstatusOperador(idOperador:number, estatus:number){
+      const obj = {
+        idOperador,
+        estatus
+      }
+      return this.http.put<response>(`${operadorUrl}UpdateEstatus`, obj);
     }
 
     //Ubicacion

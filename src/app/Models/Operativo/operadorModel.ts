@@ -1,5 +1,5 @@
 export interface Operador {
-    Id: number;
+    id: number;
     Nombre: string;
     Apellido: string;
     Edad: number;
@@ -13,5 +13,5 @@ export interface Operador {
     CVSAMMEN: string;
     ExamenesMedicos: string;
     CursosOExperiencia: string;
-    Estatus:number;
+    estatus:number;
 }
