@@ -75,4 +75,32 @@ export class OperadorComponent implements OnInit {
       complete: () => this.loading = false
     });
   }  
+
+  onCellPrepared(e:any){
+    if(e.rowType == 'data'){
+      debugger;
+      if(e.column.dataField == 'estatus'){
+        switch(e.values[6]){
+          case 0:
+            e.cellElement.style.backgroundColor = '#FFD455';
+            e.cellElement.style.color = 'white';
+            break;
+          case 1:            
+            e.cellElement.style.backgroundColor = '#8BC34A';
+            e.cellElement.style.color = 'white';
+            break;
+          case 2:
+            e.cellElement.style.backgroundColor = '#f24336';
+            e.cellElement.style.color = 'white';
+            break;
+          default:
+            break;
+              };
+            }
+          }
+        }  
 }
+
+        // case 2:            
+
+        //   break;
