@@ -78,7 +78,6 @@ export class OperadorComponent implements OnInit {
 
   onCellPrepared(e:any){
     if(e.rowType == 'data'){
-      debugger;
       if(e.column.dataField == 'estatus'){
         switch(e.values[6]){
           case 0:

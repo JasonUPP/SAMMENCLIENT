@@ -29,7 +29,7 @@ export class LoginFormComponent {
         },
         error: (error) => {
           this.loading = false;
-          notify(error.error, 'error', 2000);             
+          notify(error.message, 'error', 2000);             
         }
       }
       );
