@@ -39,8 +39,8 @@
       <dxo-popup
       title="Editar Historial Herramienta"
       [showTitle]="true"
-      [width]="1000"
-      [height]="550">
+      [fullScreen]="true"
+      >
       </dxo-popup>    
 
       <!-- custom texts -->
@@ -55,7 +55,7 @@
       </dxo-texts>
 
       <dxo-form>
-        <dxi-item itemType="group" [colCount]="3" [colSpan]="2">            
+        <dxi-item itemType="group" [colCount]="5" [colSpan]="2">            
             <dxi-item dataField="numero" editorType="dxNumberBox">
               <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
             </dxi-item>
@@ -123,16 +123,16 @@
         </dxo-lookup>
     </dxi-column>
     <dxi-column dataField="profundidadMax"></dxi-column>
-    <dxi-column dataField="od"></dxi-column>
-    <dxi-column dataField="maxWHP"></dxi-column>
-    <dxi-column dataField="temperaturaMaxima"></dxi-column>
-    <dxi-column dataField="maxCircPressure"></dxi-column>
-    <dxi-column dataField="diesel"></dxi-column>
-    <dxi-column dataField="solvente"></dxi-column>
-    <dxi-column dataField="acido"></dxi-column>
-    <dxi-column dataField="divergente"></dxi-column>
-    <dxi-column dataField="nitrogeno"></dxi-column>
-    <dxi-column dataField="gelLineal"></dxi-column>
+    <dxi-column dataField="od" caption="O.D (in)"></dxi-column>
+    <dxi-column dataField="maxWHP" caption="Max W.H.P (psi)"></dxi-column>
+    <dxi-column dataField="temperaturaMaxima" caption="Temp. Maxima (°C)"></dxi-column>
+    <dxi-column dataField="maxCircPressure" caption="Max. Circ. Pressure (PSI)"></dxi-column>
+    <dxi-column dataField="diesel" caption="Diesel (bls)"></dxi-column>
+    <dxi-column dataField="solvente" caption="Solvente (bls)"></dxi-column>
+    <dxi-column dataField="acido" caption="Acido (bls)"></dxi-column>
+    <dxi-column dataField="divergente" caption="Divergente (bls)"></dxi-column>
+    <dxi-column dataField="nitrogeno" caption="Nitrogeno (m3)"></dxi-column>
+    <dxi-column dataField="gelLineal" caption="GelLineal (bls)"></dxi-column>
     <dxi-column dataField="agua"></dxi-column>
     <dxi-column dataField="inhibidor"></dxi-column>
     <dxi-column dataField="horasOperativas"></dxi-column>

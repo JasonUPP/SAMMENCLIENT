@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginFormComponent, ResetPasswordFormComponent, CreateAccountFormComponent, ChangePasswordFormComponent } from './shared/components';
 import { HomeComponent } from './pages/home/home.component';
-import { ProfileComponent } from './pages/profile/profile.component';
-import { TasksComponent } from './pages/tasks/tasks.component';
 import { DxButtonModule, DxDataGridModule, DxDropDownButtonModule, DxFormModule } from 'devextreme-angular';
 import { AuthGuardService } from './security/auth.guard';
 import { HerramientaComponent } from './pages/Operativo/herramienta/herramienta.component';
@@ -13,16 +11,6 @@ import { OperadorComponent } from './pages/Operativo/operador/operador.component
 import { UbicacionComponent } from './pages/Operativo/ubicacion/ubicacion.component';
 import { CursosComponent } from './pages/Operativo/cursos/cursos.component';
 const routes: Routes = [
-  {
-    path: 'tasks',
-    component: TasksComponent,
-    canActivate: [ AuthGuardService ]
-  },
-  {
-    path: 'profile',
-    component: ProfileComponent,
-    canActivate: [ AuthGuardService ]
-  },
   {
     path: 'home',
     component: HomeComponent,
@@ -91,8 +79,6 @@ const routes: Routes = [
   exports: [RouterModule],
   declarations: [
     HomeComponent,
-    ProfileComponent,
-    TasksComponent,
     HerramientaComponent,
     MedidaHerramientaComponent,
     HistorialHerramientaComponent,

@@ -94,12 +94,9 @@ export class OperadorComponent implements OnInit {
             break;
           default:
             break;
-              };
-            }
-          }
-        }  
+        };
+      }
+    }
+  }
+
 }
-
-        // case 2:            
-
-        //   break;

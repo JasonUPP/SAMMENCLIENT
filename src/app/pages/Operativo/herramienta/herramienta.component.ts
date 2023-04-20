@@ -97,4 +97,34 @@ export class HerramientaComponent implements OnInit {
     return difference_In_Days;
   }
 
+  onCellPrepared(e:any){
+    if(e.rowType == 'data'){
+      if(e.column.dataField == 'fechaVencimiento'){
+        let dias = e.values[6];
+        let localEstatus: number = 0;
+        if(dias >= 0 && dias <= 30) localEstatus = 2;
+        else if (dias < 0) localEstatus = 3;
+        else localEstatus = 1;
+        switch(localEstatus){
+          case 0:
+            break;
+          case 1:            
+            e.cellElement.style.backgroundColor = '#8BC34A';
+            e.cellElement.style.color = 'white';
+            break;
+          case 2:            
+            e.cellElement.style.backgroundColor = '#FFD455';
+            e.cellElement.style.color = 'white';
+            break;
+          case 3:
+              e.cellElement.style.backgroundColor = '#f24336';
+              e.cellElement.style.color = 'white';
+            break;
+          default:
+            break;
+        };
+      }
+    }
+  }
+
 }
