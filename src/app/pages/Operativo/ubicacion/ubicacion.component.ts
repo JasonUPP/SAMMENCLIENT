@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import notify from 'devextreme/ui/notify';
 import { Ubicacion } from 'src/app/Models/Operativo/ubicacionModel';
+import { customJson } from 'src/app/Models/customJson';
 import { response } from 'src/app/Models/response';
 import { OperativoService } from 'src/app/shared/services/operativo.service';
+import { CajaList } from 'src/assets/CajaList';
 
 @Component({
   selector: 'app-ubicacion',
@@ -12,6 +14,7 @@ import { OperativoService } from 'src/app/shared/services/operativo.service';
 export class UbicacionComponent implements OnInit {
   loading: boolean = true;
   dataSource: Ubicacion[] = [];
+  cajas: customJson[] = CajaList;
   requiredMsj:string = 'Este campo es requerido';
 
   constructor(private operativoService: OperativoService){}

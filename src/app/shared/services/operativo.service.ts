@@ -204,6 +204,7 @@ export class OperativoService {
 
     updateUbicacion({data}:any){
       data.numeroCelular = data.numeroCelular ? data.numeroCelular.toString() : '';      
+      data.caja = data.caja ? data.caja.toString() : '';
       const ubicacion: Ubicacion = data;
       return this.http.put<response>(`${ubicacionUrl}Update`, ubicacion);
     }
