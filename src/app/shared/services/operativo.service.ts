@@ -144,9 +144,9 @@ export class OperativoService {
         HorasOperativas: data.horasOperativas ? data.horasOperativas : 0,
         HorasEfectivas: data.horasEfectivas ? data.horasEfectivas : 0,
         Notas: data.notas ? data.notas : '',
-        Marca: data.marca ? data.marca : '',
-        Modelo: data.modelo ? data.modelo : '',
-        NumeroSerie: data.numeroSerie ? data.numeroSerie : '', 
+        marca: data.marca ? data.marca : '',
+        modelo: data.modelo ? data.modelo : '',
+        numeroSerie: data.numeroSerie ? data.numeroSerie : '', 
       };
       return this.http.post<response>(`${historialHerramientaUrl}Add`, hist);
     }

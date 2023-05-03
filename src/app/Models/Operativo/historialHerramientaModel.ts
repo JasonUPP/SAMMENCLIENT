@@ -23,7 +23,7 @@ export interface HistorialHerramienta {
     HorasOperativas: number;
     HorasEfectivas: number;
     Notas: string;
-    Marca: string;
-    Modelo: string;
-    NumeroSerie: string;
+    marca: string;
+    modelo: string;
+    numeroSerie: string;
 }
