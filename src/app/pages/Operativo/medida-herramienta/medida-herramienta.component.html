@@ -93,9 +93,9 @@
     <dxi-column dataField="descripcion"></dxi-column>
     <dxi-column dataField="roscaCaja"></dxi-column>
     <dxi-column dataField="roscaPin"></dxi-column>
-    <dxi-column dataField="diametroExterno"></dxi-column>
-    <dxi-column dataField="balinPaso"></dxi-column>
-    <dxi-column dataField="longitud"></dxi-column>
+    <dxi-column dataField="diametroExterno" [caption]="'Diametro Externo '+inch"></dxi-column>
+    <dxi-column dataField="balinPaso" [caption]="'Balin de Paso '+inch"></dxi-column>
+    <dxi-column dataField="longitud" [caption]="'Longitud '+inch"></dxi-column>
     <dxi-column dataField="numeroSerie"></dxi-column>
     <dxi-column dataField="estatus">
       <dxo-lookup [dataSource]="estatusList" displayExpr="nombre" valueExpr="id">
@@ -115,7 +115,7 @@
     <dxo-paging [pageSize]="5"></dxo-paging>
     <dxo-pager
       [showPageSizeSelector]="true"
-      [allowedPageSizes]="[5, 10, 20]"
+      [allowedPageSizes]="[5, 10, 20, 'all']"
       [showNavigationButtons]="true"
       [showInfo]="true"
       infoText="Pagina #{0}. Total: {1} ({2} elementos)"

@@ -41,7 +41,7 @@
 <dx-data-grid 
     id="gridHistorialHerramientas"
     class="dx-card wide-card"
-    [dataSource]="filteredDataSource"
+    [dataSource]="dataSource"
     [showBorders]="true"
     keyExpr="id"
     [focusedRowEnabled]="true"
@@ -51,7 +51,7 @@
     [allowColumnReordering]="true"
     [allowColumnResizing]="true"
     [columnHidingEnabled]="false"
-    [disabled]="tableDisabled"
+    (onInitNewRow)="onInitNewRow($event)"
     (onRowUpdated)="updateHistorialHerramienta($event)"    
     (onRowInserting)="addHistorialHerramienta($event)"
     (onRowRemoving)="deleteHistorialHerramienta($event)"
@@ -66,14 +66,13 @@
     shadingColor="rgba(0, 0, 0, 0.2)"
     >
     </dxo-load-panel>
-    
     <!-- Edit Zone -->
     <!-- mode="popup" -->
     <dxo-editing
     mode="batch"
     refreshMode="reshape"
-    [allowAdding]="true"
-    [allowUpdating]="true"
+    [allowAdding]="!tableDisabled"
+    [allowUpdating]="!tableDisabled"
     [allowDeleting]="true">
 
       <dxo-popup
@@ -97,10 +96,12 @@
 
     <!-- Row zone -->
     <dxi-column dataField="id" [visible]="false" [showInColumnChooser]="false"></dxi-column>
-    <dxi-column dataField="numeroSerie" [visible]="false" [showInColumnChooser]="false"></dxi-column>
     <dxi-column dataField="numero" caption="Numero *" editorType="dxNumberBox">
       <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
     </dxi-column>
+    <dxi-column dataField="marca" [allowEditing]="false" [showInColumnChooser]="false"></dxi-column>
+    <dxi-column dataField="modelo" [allowEditing]="false" [showInColumnChooser]="false"></dxi-column>
+    <dxi-column dataField="numeroSerie" [allowEditing]="false" [showInColumnChooser]="false"></dxi-column>
     <dxi-column dataField="fecha" dataType="date" caption="Fecha *">
       <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
     </dxi-column>
@@ -125,7 +126,7 @@
         <dxo-lookup [dataSource]="operadores" displayExpr="nombre" valueExpr="id">
         </dxo-lookup>
     </dxi-column>
-    <dxi-column dataField="profundidadMax" caption="Profundidad Maxima *" editorType="dxNumberBox">
+    <dxi-column dataField="profundidadMax" caption="Profundidad Maxima (m)*" editorType="dxNumberBox">
       <dxi-validation-rule type="required" [message]=requiredMsj ></dxi-validation-rule>
     </dxi-column>
     <dxi-column editorType="dxNumberBox" dataField="od" caption="O.D (in)"></dxi-column>
@@ -143,8 +144,6 @@
     <dxi-column editorType="dxNumberBox" dataField="horasOperativas"></dxi-column>
     <dxi-column editorType="dxNumberBox" dataField="horasEfectivas"></dxi-column>
     <dxi-column dataField="notas"></dxi-column>
-    <dxi-column dataField="marca" [visible]="false" [showInColumnChooser]="false"></dxi-column>
-    <dxi-column dataField="modelo" [visible]="false" [showInColumnChooser]="false"></dxi-column>
 
     <!-- Pagin, Filter, Search zone --> 
     <dxo-filter-row
@@ -161,7 +160,7 @@
     <dxo-paging [pageSize]="5"></dxo-paging>
     <dxo-pager
       [showPageSizeSelector]="true"
-      [allowedPageSizes]="[5, 10, 20]"
+      [allowedPageSizes]="[5, 10, 20, 'all']"
       [showNavigationButtons]="true"
       [showInfo]="true"
       infoText="Pagina #{0}. Total: {1} ({2} elementos)"

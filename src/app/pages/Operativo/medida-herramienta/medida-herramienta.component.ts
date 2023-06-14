@@ -19,6 +19,7 @@ export class MedidaHerramientaComponent implements OnInit {
   estatusList: customJson[];
   tipoMedidaHerramienta: customJson[];
   flag: boolean = true;
+  inch = "\"";
 
 
   constructor(private operativoService: OperativoService){

@@ -98,9 +98,6 @@ export class HistorialHerramientaComponent implements OnInit {
   }
 
   addHistorialHerramienta(e:any){
-    e.data.marca = this.dropMarcaText;
-    e.data.modelo = this.dropModeloText;
-    e.data.numeroSerie = this.dropNumSerieText;
     this.operativoService.addHistorialHerramienta(e).
     subscribe({
       next: (e:response) => {
@@ -179,6 +176,12 @@ export class HistorialHerramientaComponent implements OnInit {
 
   findDuplicates(arr:any[]){
     return arr.filter((item:any, index:any) => arr.indexOf(item) === index);
+  }
+
+  onInitNewRow(e:any){    
+    e.data.marca = this.dropMarcaText;
+    e.data.modelo = this.dropModeloText;
+    e.data.numeroSerie = this.dropNumSerieText;
   }
 
 }
